@@ -57,9 +57,7 @@ public class Boat : RigidBody2D
     /// </summary>
     /// <param name="event"></param>
     public override void _Input(InputEvent @event){
-            GD.Print("got event:_", @event);
         if(@event.IsAction("FLIP_X") && !@event.IsEcho() && @event.IsPressed()){
-            GD.Print("now seting dir:_", @event);
             if(this.current_direction is DirectionStateRight){
                 this.setDirection(new DirectionStateLeft(this));
             }
