@@ -77,23 +77,11 @@ public class Boat : RigidBody2D
  public override void _IntegrateForces(Physics2DDirectBodyState state)
     {
 
-        //AppliedForce =  new Vector2(0,0);
-        //AppliedTorque = 0;
-        //tailFinDrag(state);
-        //applyThrust(state);
-        //applyRudder(state);
-        //applyLift(state);
-
-
+        AppliedForce = getCurrentThrust();
+        AppliedTorque = this.Rotation * (Mathf.Pow(this.Rotation+1,2))*-100000;
     }
     public override void _PhysicsProcess(float delta){
-        AppliedForce = getCurrentThrust();
     }
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
 }
 public abstract class DirectionState{
     public Boat parent;
@@ -108,8 +96,17 @@ public abstract class DirectionState{
 
 class DirectionStateLeft : DirectionState{
     public DirectionStateLeft(Boat parent) : base(parent){
+    
     }
     override public void enter(){
+        ((Sprite)this.parent.GetNode("SpriteLeft")).Visible = true;
+        ((Sprite)this.parent.GetNode("SpriteRight")).Visible= false;
+
+        ((CollisionPolygon2D)this.parent.GetNode("CollisionLeft")).Disabled = false;
+        ((CollisionPolygon2D)this.parent.GetNode("CollisionRight")).Disabled = true;
+
+        ((Light2D)this.parent.GetNode("LightFrontLeft")).Enabled= true;
+        ((Light2D)this.parent.GetNode("LightFrontRight")).Enabled= false;
     }
     override public void exit(){
 
@@ -128,11 +125,11 @@ override public Vector2 getInputThrust(){
         }
         if (Input.IsActionPressed("GO_LEFT"))
         { 
-            thrust.x += parent.thrust_forward; 
+            thrust.x -= parent.thrust_forward; 
         }
         if (Input.IsActionPressed("GO_RIGHT"))
         { 
-            thrust.x += parent.thrust_backward; 
+            thrust.x -= parent.thrust_backward; 
             }
 
 
@@ -146,6 +143,15 @@ class DirectionStateRight: DirectionState{
     public DirectionStateRight(Boat parent) : base(parent){
     }
     override public void enter(){
+
+        ((Sprite)this.parent.GetNode("SpriteRight")).Visible = true;
+        ((Sprite)this.parent.GetNode("SpriteLeft")).Visible= false;
+
+        ((CollisionPolygon2D)this.parent.GetNode("CollisionLeft")).Disabled = true;
+        ((CollisionPolygon2D)this.parent.GetNode("CollisionRight")).Disabled = false;
+
+        ((Light2D)this.parent.GetNode("LightFrontLeft")).Enabled= false;
+        ((Light2D)this.parent.GetNode("LightFrontRight")).Enabled= true;
     }
     override public void exit(){
 

@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/white_square.png" type="Texture" id=1]
-[ext_resource path="res://assets/cone_smooth_transparent.png" type="Texture" id=2]
 [ext_resource path="res://boats/Boat.tscn" type="PackedScene" id=3]
 
 [sub_resource type="OccluderPolygon2D" id=1]
@@ -65,21 +64,12 @@ tile_data = PoolIntArray( 0, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0,
 [node name="Boat" parent="." instance=ExtResource( 3 )]
 position = Vector2( 67.7593, 83.5828 )
 
-[node name="PseudoPlayer" type="Light2D" parent="Boat"]
-position = Vector2( 77.9691, 18.9318 )
-rotation = -0.895354
-scale = Vector2( 4.51979, 7.80736 )
-texture = ExtResource( 2 )
-offset = Vector2( 0, 25 )
-texture_scale = 2.47
-color = Color( 0.937255, 0.945098, 0.0352941, 1 )
-energy = 0.98
-shadow_enabled = true
-shadow_filter_smooth = 5.0
-
 [node name="Camera2D" type="Camera2D" parent="Boat"]
 position = Vector2( 79.5166, 16.867 )
 rotation = -0.895354
 scale = Vector2( 18.0792, 31.2294 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0.117647, 0.117647, 0.117647, 1 )
