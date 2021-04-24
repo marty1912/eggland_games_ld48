@@ -8,6 +8,10 @@ public interface IScannable{
 }
 
 public abstract class ScanState{
+    public Scanner scanner;
+    public static PackedScene laser_res = (PackedScene) ResourceLoader.Load("res://scannables/ScanLaser.tscn");
+    public ScanLaser laser;
+    
     public IScannable parent;
     public ScanState(IScannable parent){
         this.parent = parent;
@@ -19,9 +23,20 @@ public abstract class ScanState{
     /// </summary>
     /// <param name="delta"></param>
     public abstract void PhysicsProcess(float delta);
+
+    public void setLaserPosition(){ 
+        Vector2 global_pos = parent.GetMyNode2D().GlobalPosition; laser.CastTo = laser.ToLocal(global_pos) ; }
+
+        public void setupLaser(){
+            laser = (ScanLaser) laser_res.Instance();
+            laser.AddException(scanner.GetParent());
+            setLaserPosition();
+            this.scanner.AddChild(laser);
+        }
 }
 
 public class ScanStateInactive:ScanState{
+
 
     public ScanStateInactive(IScannable parent):base(parent){
     }
@@ -36,12 +51,11 @@ public class ScanStateInactive:ScanState{
     }
 
 
+
 }
 public class ScanStateActive:ScanState{
-    public Scanner scanner;
-
-    public float scantime = 2;
-    static Shader shader = ResourceLoader.Load("res://scannables/Scannable_scanning.shader") as Shader;
+    public float scantime = 2f;
+    public static Shader shader = ResourceLoader.Load("res://scannables/Scannable_scanning.shader") as Shader;
     public ScanStateActive(IScannable parent,Scanner scanner) : base(parent)
     {
         this.scanner = scanner;
@@ -52,38 +66,51 @@ public class ScanStateActive:ScanState{
         ShaderMaterial material = new ShaderMaterial();
         material.Shader = shader;
         sprite.Material = material;
+
+        setupLaser();
+        laser.appear();
+
     }
     override public void exit(){
-
         GD.Print("stopped scanning.");
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
         sprite.Material = null;
-
+        this.scanner.RemoveChild(laser);
     }
     override public void PhysicsProcess(float delta){
+        checkAbort();
+        setLaserPosition();
+        checkForTimeout(delta);
+    }
+    private void checkAbort(){
         Node2D parent_node = parent.GetMyNode2D();
         float distance = parent_node.GlobalPosition.DistanceTo(scanner.GlobalPosition);
         if(distance > scanner.MaxDistance){
-            this.parent.setScanState(new ScanStateAborted(parent,scanner));
-        }
-        scantime -= delta;
-        if(scantime<0){
-            // finish scan
-            this.parent.setScanState(new ScanStateSuccesful(parent,scanner));
+            this.parent.setScanState(new ScanStateAborted(parent,scanner,laser));
         }
 
     }
+
+    private void checkForTimeout(float delta){
+        scantime -= delta;
+        if(scantime<0){
+            // finish scan
+           this.parent.setScanState(new ScanStateSuccesful(parent,scanner,laser));
+        }
+    }
+    
 
 
 }
 
 public class ScanStateSuccesful:ScanState{
-    public Scanner scanner;
+
 
     public float scantime = 0.5f;
-    static Shader shader = ResourceLoader.Load("res://scannables/Scannable_success.shader") as Shader;
-    public ScanStateSuccesful(IScannable parent,Scanner scanner) : base(parent)
+    public static Shader shader = ResourceLoader.Load("res://scannables/Scannable_success.shader") as Shader;
+    public ScanStateSuccesful(IScannable parent,Scanner scanner,ScanLaser laser) : base(parent)
     {
+        this.laser = laser;
         this.scanner = scanner;
     }
     override public void enter(){
@@ -92,11 +119,15 @@ public class ScanStateSuccesful:ScanState{
         ShaderMaterial material = new ShaderMaterial();
         material.Shader = shader;
         sprite.Material = material;
+        this.scanner.AddChild(laser);
+        laser.dissapear();
     }
+
     override public void exit(){
         GD.Print("stopped scanning.");
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
         sprite.Material = null;
+        this.scanner.RemoveChild(laser);
     }
     override public void PhysicsProcess(float delta){
         scantime -= delta;
@@ -104,31 +135,36 @@ public class ScanStateSuccesful:ScanState{
             // finish scan
             this.parent.setScanState(new ScanStateInactive(parent));
         }
+        setLaserPosition();
 
     }
 
 
 }
 public class ScanStateAborted:ScanState{
-    public Scanner scanner;
 
     public float scantime = 0.5f;
-    static Shader shader = ResourceLoader.Load("res://scannables/Scannable_aborted.shader") as Shader;
-    public ScanStateAborted(IScannable parent,Scanner scanner) : base(parent)
+    public static Shader shader = ResourceLoader.Load("res://scannables/Scannable_aborted.shader") as Shader;
+    public ScanStateAborted(IScannable parent,Scanner scanner,ScanLaser laser) : base(parent)
     {
         this.scanner = scanner;
+        this.laser = laser;
     }
     override public void enter(){
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
         GD.Print("scan not successful");
         ShaderMaterial material = new ShaderMaterial();
+
         material.Shader = shader;
         sprite.Material = material;
+        this.scanner.AddChild(laser);
+        laser.dissapear();
     }
     override public void exit(){
         GD.Print("stopped scanning.");
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
         sprite.Material = null;
+        scanner.RemoveChild(laser);
     }
     override public void PhysicsProcess(float delta){
         scantime -= delta;

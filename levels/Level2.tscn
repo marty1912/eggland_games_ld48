@@ -73,7 +73,6 @@ current = true
 zoom = Vector2( 0.5, 0.5 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color( 0.117647, 0.117647, 0.117647, 1 )
 
 [node name="Scannable_Rock" parent="." instance=ExtResource( 2 )]
