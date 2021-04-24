@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eggland_games_ld48", "eggland_games_ld48.csproj", "{84BE2932-11D8-457C-8B94-375DDC884A8F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84BE2932-11D8-457C-8B94-375DDC884A8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84BE2932-11D8-457C-8B94-375DDC884A8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84BE2932-11D8-457C-8B94-375DDC884A8F}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{84BE2932-11D8-457C-8B94-375DDC884A8F}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{84BE2932-11D8-457C-8B94-375DDC884A8F}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{84BE2932-11D8-457C-8B94-375DDC884A8F}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal

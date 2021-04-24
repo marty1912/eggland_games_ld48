@@ -1,3 +1,5 @@
 .mono
 .import
 .DS_Store
+ParallaxBackground_Placeholder.tscn
+PlaneTest.cs
