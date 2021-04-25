@@ -53,24 +53,6 @@ public class Boat : RigidBody2D
 
     }
 
-        /**
-    /// <summary>
-    /// this function gets all the inputs 
-    /// </summary>
-    /// <param name="event"></param>
-    public override void _Input(InputEvent @event){
-        if(@event.IsAction("FLIP_X") && !@event.IsEcho() && @event.IsPressed()){
-            if(this.current_direction is DirectionStateRight){
-                this.setDirection(new DirectionStateLeft(this));
-            }
-            else{
-                this.setDirection(new DirectionStateRight(this));
-
-            }
-        }
-    }
-        **/
-
     /// <summary>
     /// in this function we apply the forces we get from the user input. 
     /// </summary>
@@ -80,7 +62,6 @@ public class Boat : RigidBody2D
 
         AppliedForce = getCurrentThrust();
         AppliedTorque = this.Rotation * (Mathf.Pow(this.Rotation+1,2))*-100000;
-        updateDirection();
     }
     /// <summary>
     /// updates the direction based on the velocity
@@ -94,6 +75,7 @@ public class Boat : RigidBody2D
         }
     }
     public override void _PhysicsProcess(float delta){
+        updateDirection();
     }
 }
 public abstract class DirectionState{

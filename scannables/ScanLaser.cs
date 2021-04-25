@@ -15,10 +15,8 @@ public class ScanLaser : RayCast2D
     {
         tween= (Tween) GetNode("Tween");
         line = (Line2D) GetNode("Line2D");
-        GD.Print("here1h:");
         start_particles = (CPUParticles2D) GetNode("Particles2DStart");
         end_particles = (CPUParticles2D) GetNode("Particles2DEnd");
-        GD.Print("here");
         line.SetPointPosition(0, this.Transform.origin);
     }
     public override void _PhysicsProcess(float delta)

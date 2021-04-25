@@ -19,13 +19,7 @@ public class Scannable_Static : StaticBody2D, IScannable
     public NodePath getSpriteNode(){
         return "Sprite";
     }
-    public void setScanState(ScanState next_state){
-        if(this.current_scanstate != null){
-            current_scanstate.exit();
-        }
-        current_scanstate = next_state;
-        current_scanstate.enter();
-    }
+    
     public Node2D GetMyNode2D(){
         return (Node2D)this;
 
@@ -41,5 +35,18 @@ public class Scannable_Static : StaticBody2D, IScannable
     public ScanState getScanState(){
         return this.current_scanstate;
     }
+
+    public void setScanState(ScanState next_state){
+        if(this.current_scanstate != null){
+            current_scanstate.exit();
+        }
+
+        if(this.IsQueuedForDeletion()){
+            return;
+        }
+        current_scanstate = next_state;
+        current_scanstate.enter();
+    }
+
 
 }

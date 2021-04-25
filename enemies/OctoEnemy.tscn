@@ -30,7 +30,6 @@ shape = SubResource( 1 )
 [node name="ViewArea" type="Area2D" parent="."]
 
 [node name="Light2D" type="Light2D" parent="ViewArea"]
-visible = false
 position = Vector2( -2.52895, -0.306606 )
 rotation = 1.5708
 scale = Vector2( 4.28097, 6.04918 )
@@ -41,6 +40,5 @@ color = Color( 0.956863, 0.505882, 0.941176, 1 )
 shadow_enabled = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ViewArea"]
-visible = false
 position = Vector2( 1.88989, -0.629959 )
 polygon = PoolVector2Array( -2.79626, -5.59381, -264.86, -98.828, -310.847, -41.5016, -292.578, 35.9836 )
