@@ -2,7 +2,7 @@ shader_type canvas_item;
 render_mode unshaded;
 // this shader was copied from  https://godotshaders.com/shader/vhs-and-crt-monitor-effect/ and adapted.
 
-uniform float dissolve_value : hint_range(0,1);
+uniform float dissolve_value =1;//hint_range(0,1);
 uniform float red = 0.5;
 uniform float green= 0.5;
 uniform float blue= 0.5;
@@ -34,7 +34,10 @@ void fragment(){
 // just some playing around..
   //vec2 uv = random(UV);
   vec4 main_text = texture(TEXTURE,UV);
-  main_text.a *= floor(dissolve_value+noise(UV*100.0));
+  vec2 uv = UV;
+  uv.x += TIME;
+  main_text.a *= floor(dissolve_value+noise(uv*1000f));
+
 
   COLOR = main_text;
   

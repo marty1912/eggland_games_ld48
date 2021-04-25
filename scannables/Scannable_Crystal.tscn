@@ -6,7 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
-shader_param/dissolve_value = null
+shader_param/dissolve_value = 1.0
 shader_param/red = 0.5
 shader_param/green = 0.5
 shader_param/blue = 0.5
