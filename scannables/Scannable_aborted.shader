@@ -7,5 +7,5 @@ uniform float blue= 0.5;
 
 void fragment(){
   COLOR = texture(TEXTURE,UV);
-  COLOR.r = red;
+  COLOR.r += red;
 }

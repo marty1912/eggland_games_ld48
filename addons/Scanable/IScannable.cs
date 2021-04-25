@@ -5,12 +5,15 @@ public interface IScannable{
     NodePath getSpriteNode();
     void setScanState(ScanState next_state);
     Node2D GetMyNode2D();
+
+    float getMinerals();
 }
 
 public abstract class ScanState{
     public Scanner scanner;
     public static PackedScene laser_res = (PackedScene) ResourceLoader.Load("res://scannables/ScanLaser.tscn");
     public ScanLaser laser;
+
     
     public IScannable parent;
     public ScanState(IScannable parent){
@@ -54,18 +57,22 @@ public class ScanStateInactive:ScanState{
 
 }
 public class ScanStateActive:ScanState{
-    public float scantime = 2f;
+    public float scantime = 0 ;
+    public float scantime_total = 2f;
+
+    public ShaderMaterial material;
     public static Shader shader = ResourceLoader.Load("res://scannables/Scannable_scanning.shader") as Shader;
-    public ScanStateActive(IScannable parent,Scanner scanner) : base(parent)
+     public ScanStateActive(IScannable parent,Scanner scanner) : base(parent)
     {
         this.scanner = scanner;
     }
     override public void enter(){
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
         GD.Print("being scanned..");
-        ShaderMaterial material = new ShaderMaterial();
+        material = new ShaderMaterial();
         material.Shader = shader;
         sprite.Material = material;
+        scanner.currently_scanning++;
 
         setupLaser();
         laser.appear();
@@ -76,6 +83,7 @@ public class ScanStateActive:ScanState{
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
         sprite.Material = null;
         this.scanner.RemoveChild(laser);
+        scanner.currently_scanning--;
     }
     override public void PhysicsProcess(float delta){
         checkAbort();
@@ -88,12 +96,16 @@ public class ScanStateActive:ScanState{
         if(distance > scanner.MaxDistance){
             this.parent.setScanState(new ScanStateAborted(parent,scanner,laser));
         }
+        if(laser.IsColliding() && laser.GetCollider() != this.parent.GetMyNode2D()){
+            this.parent.setScanState(new ScanStateAborted(parent,scanner,laser));
+        }
 
     }
 
     private void checkForTimeout(float delta){
-        scantime -= delta;
-        if(scantime<0){
+        scantime += delta;
+        material.SetShaderParam("dissolve_value", 1 - (scantime / scantime_total) +0.4);
+        if(scantime >= scantime_total){
             // finish scan
            this.parent.setScanState(new ScanStateSuccesful(parent,scanner,laser));
         }
@@ -121,6 +133,7 @@ public class ScanStateSuccesful:ScanState{
         sprite.Material = material;
         this.scanner.AddChild(laser);
         laser.dissapear();
+        this.scanner.addMinerals(this.parent.getMinerals());
     }
 
     override public void exit(){
@@ -128,6 +141,9 @@ public class ScanStateSuccesful:ScanState{
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
         sprite.Material = null;
         this.scanner.RemoveChild(laser);
+        // destoy our parent..
+        Node2D par = this.parent.GetMyNode2D();
+        par.GetParent().RemoveChild(par);
     }
     override public void PhysicsProcess(float delta){
         scantime -= delta;

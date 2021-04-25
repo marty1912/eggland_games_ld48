@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Scannable_Rock : RigidBody2D, IScannable
+public class Scannable_Static : StaticBody2D, IScannable
 {
 
     [Export]
