@@ -7,7 +7,7 @@ public class FloatingText : Position2D
 
     private Label valueText;
     private Tween tween;
-    private float value = 0;
+    private int value = 0;
     private Vector2 offset = Vector2.Zero;
 
     private Vector2 velocity;
@@ -33,7 +33,7 @@ public class FloatingText : Position2D
         Position += velocity * delta;
     }
 
-    public void Init(Vector2 offset, float value)
+    public void Init(Vector2 offset, int value)
     {
         this.offset = offset;
         this.value = value;
