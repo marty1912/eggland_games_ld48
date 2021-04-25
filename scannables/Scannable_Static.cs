@@ -7,6 +7,11 @@ public class Scannable_Static : StaticBody2D, IScannable
     [Export]
     float minerals = 100;
 
+    public override void _Ready()
+    {
+        base._Ready();
+        this.setScanState(new ScanStateInactive(this));
+    }
     public float getMinerals(){
         return minerals;
     }
@@ -32,6 +37,9 @@ public class Scannable_Static : StaticBody2D, IScannable
         {
             this.current_scanstate.PhysicsProcess(delta);
         }
+    }
+    public ScanState getScanState(){
+        return this.current_scanstate;
     }
 
 }

@@ -12,7 +12,7 @@ public class BoatScanner : Scanner
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        MaxDistance = 500;
+        MaxDistance = 100;
 
     }
     public override void _PhysicsProcess(float delta)
@@ -21,6 +21,13 @@ public class BoatScanner : Scanner
         Godot.Collections.Array exceptions = new Godot.Collections.Array();
         exceptions.Add(this.GetParent());
         List<IScannable> available = this.ScanRadius(this.MaxDistance, GetWorld2d().DirectSpaceState,exceptions);
+        foreach (var avail in available)
+        {
+            if (avail.getScanState() is ScanStateInactive)
+            {
+                avail.setScanState(new ScanStateHighlight(avail, this));
+            }
+        }
 
         if(Input.IsActionPressed("SCAN")){
             this.scanObjects(available.Take(this.maxObjects-currently_scanning).ToList());

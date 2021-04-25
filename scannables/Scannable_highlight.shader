@@ -1,10 +1,8 @@
 shader_type canvas_item;
 render_mode unshaded;
-
-
 // this shader was copied from  https://godotshaders.com/shader/vhs-and-crt-monitor-effect/ and adapted.
 
-uniform float dissolve_value =0.1;//: hint_range(0,1);
+uniform float dissolve_value =0.6;//: hint_range(0,1);
 uniform float red = 0.5;
 uniform float green= 0.5;
 uniform float blue= 0.5;
