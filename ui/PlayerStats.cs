@@ -17,6 +17,7 @@ public sealed class PlayerStats
             }
         }
     }
+
     public int ShieldCount
     {
         get
