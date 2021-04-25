@@ -52,6 +52,8 @@ public class Boat : RigidBody2D
         
 
     }
+
+        /**
     /// <summary>
     /// this function gets all the inputs 
     /// </summary>
@@ -67,6 +69,7 @@ public class Boat : RigidBody2D
             }
         }
     }
+        **/
 
     /// <summary>
     /// in this function we apply the forces we get from the user input. 
@@ -77,6 +80,18 @@ public class Boat : RigidBody2D
 
         AppliedForce = getCurrentThrust();
         AppliedTorque = this.Rotation * (Mathf.Pow(this.Rotation+1,2))*-100000;
+        updateDirection();
+    }
+    /// <summary>
+    /// updates the direction based on the velocity
+    /// </summary>
+    public void updateDirection(){
+        if(LinearVelocity.x > 0 && current_direction is DirectionStateLeft){
+            this.setDirection(new DirectionStateRight(this));
+        }
+        else if(LinearVelocity.x < 0 && current_direction is DirectionStateRight){
+            this.setDirection(new DirectionStateLeft(this));
+        }
     }
     public override void _PhysicsProcess(float delta){
     }
