@@ -10,6 +10,7 @@ public class EnemyLaser : RayCast2D
     public CPUParticles2D end_particles;
     public float line_width = 3;
     public float aim_width = 0.5f;
+    public float shoot_width = 0.5f;
     Tween tween;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -56,6 +57,12 @@ public class EnemyLaser : RayCast2D
     public void startAiming(float duration){
         tween.StopAll();
         tween.InterpolateProperty(line, "width", 0, aim_width, duration);
+        tween.Start();
+    }
+    public void startShooting(float duration){
+        tween.StopAll();
+        tween.Repeat = true;
+        tween.InterpolateProperty(line, "width", line_width, shoot_width, duration,Tween.TransitionType.Circ);
         tween.Start();
     }
     public void stopTweening(){

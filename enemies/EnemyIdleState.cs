@@ -8,6 +8,7 @@ using System;
 public class EnemyIdleState : EnemyState{
 
 
+    public float idle_time = 3f;
     public Path2D Path;
     /// <summary>
     /// 
@@ -18,6 +19,10 @@ public class EnemyIdleState : EnemyState{
     }
 
     public override void _PhysicsProcess(float delta){
+        idle_time -= delta;
+        if(idle_time < 0){
+            parent.setNextState(new EnemyPatrolState(parent));
+        }
     }
     public override void enter(){
     }

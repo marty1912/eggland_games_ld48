@@ -10,6 +10,7 @@ public abstract class EnemyState{
     public Light2D light;
     public Tween tween;
     public EnemyLaser laser;
+    public LaserSlicer slicer;
     public OctoEnemy parent;
     public EnemyState(OctoEnemy enemy){
         this.parent = enemy;
@@ -17,6 +18,7 @@ public abstract class EnemyState{
         this.light= (Light2D)view_area.GetNode("Light2D");
         this.tween= (Tween)parent.GetNode("Tween");
         this.laser = (EnemyLaser ) parent.GetNode("AimLaser");
+        this.slicer = (LaserSlicer) laser.GetNode("Slicer");
     }
     public abstract void enter();
     public abstract void exit();

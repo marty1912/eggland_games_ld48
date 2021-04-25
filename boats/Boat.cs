@@ -1,10 +1,27 @@
 using Godot;
 using System;
 
-public class Boat : RigidBody2D
+public class Boat : SliceableObject2D 
 {
 
-    
+    public Boolean block_rotation = false;
+
+    public override NodePath getmeshNodename(){
+
+        return current_direction.getmeshNodename();
+    }
+    public override NodePath getspriteNodename(){
+
+        return current_direction.getspriteNodename();
+    }
+    public  override NodePath getCollision1Nodename(){
+        return current_direction.getCollision1Nodename();
+
+    }
+    public override NodePath getCollision2Nodename(){
+        return current_direction.getCollision2Nodename();
+
+    }
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
@@ -26,10 +43,26 @@ public class Boat : RigidBody2D
     [Export] public float thrust_backward = -5;
     public float direction = 1;
 
+    public int shields = 0;
 
+    [Signal]
+    public delegate void BoatDestroyed();
+    public void getDestroyed(){
+        EmitSignal(nameof(BoatDestroyed));
+        GD.Print("boat got destroyed..");
+    }
     public DirectionState current_direction = null;
 
+    public void addShield(){
+        shields++;
+    }
+    public void removeShield(){
+        shields--;
+    }
     public void setDirection(DirectionState direction) {
+        if(block_rotation){
+            return;
+        }
         if(this.current_direction != null){
             this.current_direction.exit();
         }
@@ -87,18 +120,24 @@ public abstract class DirectionState{
     public abstract void exit();
     public abstract void process();
     public abstract Vector2 getInputThrust();
+
+    public abstract NodePath getmeshNodename();
+    public abstract NodePath getspriteNodename();
+    public abstract NodePath getCollision1Nodename();
+    public abstract NodePath getCollision2Nodename();
 }
+
 
 class DirectionStateLeft : DirectionState{
     public DirectionStateLeft(Boat parent) : base(parent){
     
     }
     override public void enter(){
-        ((Sprite)this.parent.GetNode("SpriteLeft")).Visible = true;
-        ((Sprite)this.parent.GetNode("SpriteRight")).Visible= false;
+        ((MeshInstance2D)this.parent.GetNode("SpriteLeftMesh")).Visible = true;
+        ((MeshInstance2D)this.parent.GetNode("SpriteRightMesh")).Visible= false;
 
-        ((CollisionPolygon2D)this.parent.GetNode("CollisionLeft")).Disabled = false;
-        ((CollisionPolygon2D)this.parent.GetNode("CollisionRight")).Disabled = true;
+        //((CollisionPolygon2D)this.parent.GetNode("CollisionLeft")).Disabled = false;
+        //((CollisionPolygon2D)this.parent.GetNode("CollisionRight")).Disabled = true;
 
         ((Light2D)this.parent.GetNode("LightFrontLeft")).Enabled= true;
         ((Light2D)this.parent.GetNode("LightFrontRight")).Enabled= false;
@@ -131,6 +170,23 @@ override public Vector2 getInputThrust(){
         return thrust;
 
     }
+
+    public override NodePath getmeshNodename(){
+
+        return "SpriteLeftMesh";
+    }
+    public override NodePath getspriteNodename(){
+
+        return "SpriteLeft";
+    }
+    public  override NodePath getCollision1Nodename(){
+        return "CollisionLeft";
+
+    }
+    public override NodePath getCollision2Nodename(){
+        return "CollisionRight";
+    }
+ 
 }
 
 
@@ -139,8 +195,10 @@ class DirectionStateRight: DirectionState{
     }
     override public void enter(){
 
-        ((Sprite)this.parent.GetNode("SpriteRight")).Visible = true;
-        ((Sprite)this.parent.GetNode("SpriteLeft")).Visible= false;
+        //
+        //((Sprite)this.parent.GetNode("SpriteRight")).Visible = true;
+        ((MeshInstance2D)this.parent.GetNode("SpriteRightMesh")).Visible = true;
+        ((MeshInstance2D)this.parent.GetNode("SpriteLeftMesh")).Visible = false;
 
         ((CollisionPolygon2D)this.parent.GetNode("CollisionLeft")).Disabled = true;
         ((CollisionPolygon2D)this.parent.GetNode("CollisionRight")).Disabled = false;
@@ -173,5 +231,22 @@ override public Vector2 getInputThrust(){
 
         return thrust;
 
+    }
+
+ 
+public override NodePath getmeshNodename(){
+
+        return "SpriteRightMesh";
+    }
+    public override NodePath getspriteNodename(){
+
+        return "SpriteRight";
+    }
+    public  override NodePath getCollision1Nodename(){
+        return "CollisionLeft";
+
+    }
+    public override NodePath getCollision2Nodename(){
+        return "CollisionRight";
     }
 }

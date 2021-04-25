@@ -37,6 +37,7 @@ public class Slicer2D : Node2D
     /// <returns></returns>
     public List<SlicingData> sliceWorld(Vector2 start, Vector2 end, uint collision_layer = 0x7FFFFFFF)
     {
+        GD.Print("sliceworld:", start, "end:", end);
         var data = getObjectsToSlice(start, end, collision_layer);
         foreach(var dat in data){
             slice(dat);
@@ -67,6 +68,10 @@ public Vector2[] getShapePoints(Shape2D shape){
         if(shape is ConvexPolygonShape2D){
             return ((ConvexPolygonShape2D)shape).Points;
         }
+
+        if(shape is ConcavePolygonShape2D){
+            return Geometry.ConvexHull2d(((ConvexPolygonShape2D)shape).Points);
+        }
         else if(shape is RectangleShape2D){
             Vector2[] points = new Vector2[4];
         
@@ -87,7 +92,7 @@ public Vector2[] getShapePoints(Shape2D shape){
 /// </summary>
 /// <param name="to_slice"></param>
 /// <returns></returns>
-        public int slice(SlicingData to_slice){
+        public SliceableObject2D[] slice(SlicingData to_slice){
         GD.Print("slice(",to_slice,")");
         SliceableObject2D obj = to_slice.obj;
         Vector2 local_enter = obj.ToLocal(to_slice.global_enter);
@@ -131,14 +136,14 @@ public Vector2[] getShapePoints(Shape2D shape){
                 var child1Shape = new ConvexPolygonShape2D();
                 child1Shape.Points = child1Points.ToArray();
                 foreach(var p in child1Points){
-                        GD.Print("child1: ", p);
+                        //GD.Print("child1: ", p);
                 }
                 child1Shapes.Add(child1Shape);
 
                 var child2Shape = new ConvexPolygonShape2D();
                 child2Shape.Points = child2Points.ToArray();
                 foreach(var p in child2Points){
-                        GD.Print("child2: ", p);
+                        //GD.Print("child2: ", p);
                 }
                 child2Shapes.Add(child2Shape);
 
@@ -149,9 +154,22 @@ public Vector2[] getShapePoints(Shape2D shape){
         GD.Print("now creating children..");
         var child1 = createChild(obj, child1Shapes.ToArray());
         var child2 = createChild(obj, child2Shapes.ToArray());
-        obj.QueueFree();
+        //obj.QueueFree();
+        obj.Visible = false;
+        CollisionPolygon2D collision_node = (CollisionPolygon2D) obj.GetNode(obj.collisionPoly);
+        GD.Print("got it",collision_node);
+        collision_node.Disabled = true;
+        collision_node = (CollisionPolygon2D) obj.GetNode(obj.collisionPoly2);
+        GD.Print("got it",collision_node);
+        collision_node.Disabled = true;
+        ((Boat)obj).getDestroyed();
 
-        return 0;
+        List<SliceableObject2D> list = new List<SliceableObject2D>();
+
+        list.Add(child1);
+        list.Add(child2);
+
+        return list.ToArray();
     }
     public SliceableObject2D createChild(SliceableObject2D original_object,Shape2D[] shapes){
 
@@ -169,17 +187,27 @@ public Vector2[] getShapePoints(Shape2D shape){
         MeshInstance2D mesh = new MeshInstance2D();
 
 
+        // update all the names in the child..
+        child.mesh_nodename = original_object.getmeshNodename();//"SpriteRightMesh";
+        child.sprite_nodename = original_object.getspriteNodename();//"SpriteRight";
+        child.collisionPoly= original_object.getCollision1Nodename();//"SpriteRightMesh";
+        child.collisionPoly2= original_object.getCollision2Nodename();//"SpriteRight";
+
         GD.Print("child.shapeowners:", child.GetShapeOwners());
-        GD.Print("will now get sprite..",child.sprite);
-        mesh.Name = child.sprite;
-        MeshInstance2D spritenode = (MeshInstance2D) child.GetNode(child.sprite);
-        Sprite spritenode2 = (Sprite) child.GetNode(child.sprite2);
+        GD.Print("will now get mesh sprite..",child.mesh_nodename,"<- name");
+        mesh.Name = child.mesh_nodename;
+        MeshInstance2D spritenode = (MeshInstance2D) child.GetNode(child.mesh_nodename);
+        GD.Print("mesh sprite scale:",spritenode.Scale);
+        GD.Print("will now get sprite sprite..",child.sprite_nodename);
+        Sprite spritenode2 = (Sprite) child.GetNode(child.sprite_nodename);
         //mesh.Name = spritenode.Name;
         var sprite_rect = spritenode2.GetRect();
         //var sprite_orig = new Vector2(0, 20);//child.ToLocal(spritenode2.GetGlobalTransform().origin);
         var sprite_orig = child.GetGlobalTransform().BasisXformInv(spritenode2.GlobalPosition);
         var sprite_pos =  sprite_orig + sprite_rect.Position;
         var sprite_size =  sprite_rect.Size;
+        Vector2 sprite_scale =  spritenode2.Scale;
+        Vector2 orig_scale = spritenode.Scale;
 
         spritenode.ReplaceBy(mesh);
 
@@ -199,8 +227,8 @@ public Vector2[] getShapePoints(Shape2D shape){
 
         var uvs = new Vector2[outlines.Length];
         for (int uv_index = 0; uv_index < uvs.Length;uv_index++){
-            Vector2 vec = (outlines[uv_index] - sprite_pos)/sprite_size;
-            GD.Print("outline:",outlines[uv_index],"uvs:", vec, "size",sprite_size,"origin:",sprite_pos);
+            Vector2 vec =  (outlines[uv_index] - sprite_pos)/sprite_size;
+            //GD.Print("outline:",outlines[uv_index],"uvs:", vec, "size",sprite_size,"origin:",sprite_pos);
             vec.x = Mathf.Clamp(vec.x, 0, 1);
             vec.y = Mathf.Clamp(vec.y, 0, 1);
             uvs[uv_index] = vec;
@@ -218,16 +246,24 @@ public Vector2[] getShapePoints(Shape2D shape){
         mesh.Mesh = arr_mesh;
 
         mesh.Texture = (Texture) spritenode2.Texture.Duplicate();
+        mesh.Scale = orig_scale;
+
+        GD.Print("my mesh scale:",mesh.Scale);
 
         // resize the collision polygon so the center of mass etc are fixed.
+        GD.Print("will now get collisionpoly");
         CollisionPolygon2D collision_node = (CollisionPolygon2D) child.GetNode(child.collisionPoly);
+        GD.Print("got it",collision_node);
+        collision_node.Polygon = outlines;
+        collision_node = (CollisionPolygon2D) child.GetNode(child.collisionPoly2);
+        GD.Print("got it",collision_node);
         collision_node.Polygon = outlines;
 
         original_object.GetParent().AddChild(child);
 
         //spritenode = (Mesh) child.GetNode(child.sprite);
         //GD.Print("created child.. will now get sprite..",spritenode);
-
+        ((Boat)child).block_rotation = true;
 
         return child;
 
@@ -244,10 +280,11 @@ public Vector2[] getShapePoints(Shape2D shape){
         var space_state = GetWorld2d().DirectSpaceState;
         var found_colliders = new Godot.Collections.Array();
         var found_intersects = new Godot.Collections.Array();
-        GD.Print("intersecting line..");
-        while (true)
-        {
 
+        int i = 0;
+        GD.Print("intersecting line..");
+        while (i<100)
+        {
             var found_intersecting = space_state.IntersectRay(start, end, found_colliders, collision_layer);
             if (!found_intersecting.Contains("collider"))
             {
@@ -257,6 +294,7 @@ public Vector2[] getShapePoints(Shape2D shape){
 
             found_colliders.Add(found_intersecting["collider"]);
             found_intersects.Add(found_intersecting);
+            i++;
 
         }
 
@@ -273,6 +311,7 @@ public Vector2[] getShapePoints(Shape2D shape){
     private List<SlicingData> getObjectsToSlice(Vector2 start, Vector2 end, uint collision_layer = 0x7FFFFFFF)
     {
 
+        GD.Print("now starting..");
         Godot.Collections.Array forward = castLine(start, end, collision_layer);
         Godot.Collections.Array backward = castLine(end, start, collision_layer);
 

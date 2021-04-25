@@ -27,6 +27,7 @@ public class EnemyAimState : EnemyState{
             laser.line.Visible = !laser.line.Visible;
         }
         if(aim_time < 0){
+            parent.setNextState(new EnemyShootState(parent,player_boat));
         }
     }
     public float getCurrentBlinkInterval(){

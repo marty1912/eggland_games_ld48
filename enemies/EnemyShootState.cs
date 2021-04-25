@@ -6,7 +6,7 @@ using Godot.Collections;
 public class EnemyShootState : EnemyState{
 
     public Boat player_boat;
-    float aim_time = 2.5f;
+    float shoot_time = 1f;
     public EnemyShootState(OctoEnemy enemy,Boat boat) : base(enemy){
         player_boat = boat;
     }
@@ -14,41 +14,40 @@ public class EnemyShootState : EnemyState{
     
     public override void _PhysicsProcess(float delta){
         // check if we can reach the ship.
-        if((parent.GlobalPosition - player_boat.GlobalPosition).Length() > parent.lineOfSightDistance || (!haveLineOfSight(player_boat) )){
-            parent.setNextState(new EnemyPatrolState(parent));
-        }
-
-        aim_time -= delta;
+        shoot_time -= delta;
         laser.CastTo = laser.ToLocal(player_boat.GlobalPosition);
-
-        blink_time -= delta;
-        if(blink_time < 0){
-            blink_time = getCurrentBlinkInterval();
-            laser.line.Visible = !laser.line.Visible;
-        }
-        if(aim_time < 0){
+        if(shoot_time < 0){
+            parent.setNextState(new EnemyIdleState(parent));
         }
     }
-    public float getCurrentBlinkInterval(){
-        return blink_interval;
-    }
 
-    public Boolean blinking = false;
-    public float blink_time = 0.5f;
-    public float blink_interval= 0.125f;
+/// <summary>
+/// function to shoot a boat.
+/// </summary>
+/// <param name="boat"></param>
+public void shootBoat(Boat boat){
+        if (boat.shields == 0)
+        {
+            slicer.sliceBoat(player_boat, Vector2.Zero);
+        }
+        else{
+            boat.removeShield();
+        }
+    }
     public override void enter(){
-        GD.Print("enter aim state.");
+        GD.Print("enter shoot state.");
         laser.Visible = true;
         laser.line.Visible = true;
         // start red blinking light.
-        laser.startShooting(aim_time);
         laser.line.Modulate = new Color("ff0000");
-        laser.end_particles.Visible = false;
-        laser.start_particles.Visible = false;
+        laser.end_particles.Visible = true;
+        laser.start_particles.Visible = true;
+        laser.startShooting(0.1f);
         tween.StopAll();
+        shootBoat(player_boat);
     }
     public override void exit(){
-        GD.Print("exit aim state.");
+        GD.Print("exit shoot state.");
         laser.stopTweening();
         laser.Visible = false;
         tween.StopAll();
