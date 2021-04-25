@@ -8,6 +8,7 @@ public class EnemyPatrolState : EnemyState{
     public Vector2[] patrol_points;
     public int patrol_index;
     public float distance_tolerance = 10;
+
     public EnemyPatrolState(OctoEnemy enemy) : base(enemy){
         this.path = this.parent.patrolpath;
         this.patrol_points = this.path.Curve.GetBakedPoints();
@@ -24,7 +25,17 @@ public float distanceToPoint(int point_index){
         return (cur_point - my_pos).Length();
 
 }
-    public override void _PhysicsProcess(float delta){
+public void CheckBoatInArea(){
+        Godot.Collections.Array bodies = view_area.GetOverlappingBodies();
+        for (int i = 0; i < bodies.Count;i++){
+            Node2D body =(Node2D) bodies[i];
+
+            if(body is Boat){
+                this.parent.setNextState(new EnemyAlarmState(parent, (Boat) body));
+            }
+        }
+    }
+   public override void _PhysicsProcess(float delta){
         if(distanceToPoint(patrol_index) < distance_tolerance){
             patrol_index++;
             patrol_index %= patrol_points.Length;
@@ -32,6 +43,7 @@ public float distanceToPoint(int point_index){
         Vector2 target = patrol_points[patrol_index];
         float movementForce = Mathf.Clamp(distanceToPoint(patrol_index), 0, parent.maxMovementForce);
         parent.AppliedForce = (target - path.ToLocal(parent.GlobalPosition)).Normalized() * movementForce;
+        CheckBoatInArea();
 
     }
 
@@ -52,9 +64,12 @@ public float distanceToPoint(int point_index){
         return min_index;
     }
     public override void enter(){
+        GD.Print("enter patrol state");
         patrol_index = getClosestPointIndex();
+        light.Color = new Color("f481f0");
     }
     public override void exit(){
+        GD.Print("exit patrol state");
     }
 
 }

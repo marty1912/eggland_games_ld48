@@ -9,6 +9,9 @@ public class OctoEnemy : RigidBody2D
 
     [Export]
     public float maxMovementForce = 20;
+
+    [Export]
+    public float lineOfSightDistance = 500;
     public Path2D patrolpath; 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

@@ -47,10 +47,6 @@ public class Scannable_Rock : RigidBody2D, IScannable
         current_scanstate = next_state;
         current_scanstate.enter();
     }
-    public void BlockStateChange(Boolean value){
-        this.block_state_change = value;
-    }
-    public Boolean block_state_change = false;
 
 
     

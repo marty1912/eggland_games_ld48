@@ -17,24 +17,24 @@ gravity_scale = 0.0
 script = ExtResource( 2 )
 
 [node name="Light2D" type="Light2D" parent="."]
-position = Vector2( 83.7081, -1.37568 )
+position = Vector2( 10.5578, -11.7583 )
 scale = Vector2( 10, 10 )
 texture = ExtResource( 4 )
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-position = Vector2( 140.556, 37.1707 )
+position = Vector2( 67.4057, 26.7881 )
 rotation = -0.698132
 scale = Vector2( 1.9267, 8.23412 )
 occluder = SubResource( 1 )
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
-position = Vector2( 140.556, 37.1707 )
+position = Vector2( 67.4057, 26.7881 )
 rotation = -0.698132
 scale = Vector2( 1.9267, 8.23412 )
 occluder = SubResource( 2 )
 
 [node name="LightFrontRight" type="Light2D" parent="."]
-position = Vector2( 140.556, 37.1707 )
+position = Vector2( 67.4057, 26.7881 )
 rotation = -0.698132
 scale = Vector2( 1.9267, 8.23412 )
 texture = ExtResource( 3 )
@@ -42,7 +42,7 @@ offset = Vector2( 0, 15 )
 shadow_enabled = true
 
 [node name="LightFrontLeft" type="Light2D" parent="."]
-position = Vector2( 6.73013, 37.3493 )
+position = Vector2( -66.4201, 26.9667 )
 rotation = 0.872665
 scale = Vector2( 1.9267, 8.23412 )
 texture = ExtResource( 3 )
@@ -50,31 +50,28 @@ offset = Vector2( 0, 15 )
 shadow_enabled = true
 
 [node name="CollisionRight" type="CollisionPolygon2D" parent="."]
-visible = false
-position = Vector2( 85.3467, 8.38664 )
+position = Vector2( 12.1964, -1.99597 )
 scale = Vector2( -0.125, 0.125 )
 polygon = PoolVector2Array( 156.721, -221.878, 366.258, -171.081, 553.571, -386.967, 471.027, -104.41, 474.201, -59.9629, 550.397, -9.16602, 578.97, -5.99121, 677.389, -266.325, 651.99, 324.188, 566.271, 44.8055, 521.823, 41.6307, 493.25, 387.684, 350.384, 209.895, -5.19373, 311.489, -443.316, 225.769, -535.386, 22.5819, -402.044, -152.032, -217.905, -221.878, -122.661, -326.646, -55.9905, -329.821, -36.9417, -472.687, 137.672, -434.589, 102.75, -393.317, 4.33069, -383.793, 4.33069, -352.045, 109.099, -323.471 )
 
 [node name="CollisionLeft" type="CollisionPolygon2D" parent="."]
-visible = false
-position = Vector2( 87.7064, 6.4989 )
+position = Vector2( 14.5561, -3.88371 )
 scale = Vector2( -0.125, 0.125 )
 polygon = PoolVector2Array( 522.037, -190.562, 363.466, -243.419, 295.507, -337.806, 178.467, -352.908, 186.018, -439.745, 46.3246, -458.622, 46.3246, -401.99, 125.61, -398.214, 121.834, -341.582, 34.998, -337.806, -17.8589, -284.949, -2.75684, -220.766, -233.062, -175.46, -410.511, -401.99, -316.123, -152.807, -387.858, -58.4196, -478.469, -345.357, -516.224, 319.13, -399.184, 35.9678, -331.225, 126.58, -372.756, 383.314, -195.307, 213.416, 167.141, 273.824, 457.854, 266.273, 680.608, 119.029, 650.404, -77.2971 )
 disabled = true
 
 [node name="SpriteRight" type="Sprite" parent="."]
-visible = false
-position = Vector2( 62.9299, -3.41205 )
+position = Vector2( -10.2204, -13.7947 )
 rotation = 3.14159
 scale = Vector2( 0.125, -0.125 )
 texture = ExtResource( 1 )
 
 [node name="SpriteLeft" type="Sprite" parent="."]
-position = Vector2( 87.4126, -2.35487 )
+position = Vector2( 14.2623, -12.7375 )
 rotation = 3.14159
 scale = Vector2( -0.125, -0.125 )
 texture = ExtResource( 1 )
 
 [node name="Scanner" type="Node2D" parent="."]
-position = Vector2( 71.4986, 38.6735 )
+position = Vector2( -1.65167, 28.2909 )
 script = ExtResource( 5 )

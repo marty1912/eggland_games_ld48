@@ -26,6 +26,10 @@ public class EnemyDirectionStateLeft : EnemyDirectionState{
 
         GD.Print("enter dir left;");
         view_area.Scale = new Vector2(1, view_area.Scale.y);
+        sprite.Scale = new Vector2(Mathf.Abs(sprite.Scale.x),sprite.Scale.y);
+        sprite_shoot.Scale = new Vector2(Mathf.Abs(sprite_shoot.Scale.x),sprite_shoot.Scale.y);
+        laser.Position = new Vector2(-Mathf.Abs(laser.Position.x),laser.Position.y);
+
     }
     public override void exit(){
 
