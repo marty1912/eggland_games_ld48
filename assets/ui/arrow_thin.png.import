@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/upgrade_outline.png-733c1024811972ce83415bff33a7652b.stex"
+path="res://.import/arrow_thin.png-71593d93839bff0c013c11a76f8d2b00.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/upgrade_outline.png"
-dest_files=[ "res://.import/upgrade_outline.png-733c1024811972ce83415bff33a7652b.stex" ]
+source_file="res://assets/ui/arrow_thin.png"
+dest_files=[ "res://.import/arrow_thin.png-71593d93839bff0c013c11a76f8d2b00.stex" ]
 
 [params]
 

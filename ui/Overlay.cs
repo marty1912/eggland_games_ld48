@@ -3,23 +3,22 @@ using System;
 
 public class Overlay : Control
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
-
-    private Label mineralCount;
+    private UpgradeTree upgradeTree;
 
     public override void _Ready()
     {
-        //var boat = GetTree().CurrentScene.GetNode("Boat");
-        //var scanner = /*GetParent().GetParent().GetNode("Boat")*/ boat.GetNode<Scanner>("Scanner");
-        //scanner.Connect("addedMinerals", this, nameof(OnMineralsAdded));
-        //mineralCount = GetNode("HBoxContainer").GetNode<Label>("MineralCount");
+        upgradeTree = (UpgradeTree) GetNode("UpgradeTree");
     }
 
-    private void OnMineralsAdded(float value)
+    public void _on_TextureButton_pressed()
     {
-        //mineralCount.Text = value.ToString();
-        //GD.Print("Added minerals (UI): " + value);
+        if (!upgradeTree.Visible)
+        {
+            upgradeTree.Visible = true;
+        }
+        else
+        {
+            upgradeTree.Visible = false;
+        }
     }
 }

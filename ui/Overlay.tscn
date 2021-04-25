@@ -1,19 +1,20 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/Overlay.cs" type="Script" id=1]
 [ext_resource path="res://ui/MineralCounter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/ui/upgrade_button_normal.png" type="Texture" id=3]
 [ext_resource path="res://assets/ui/upgrade_button_pressed.png" type="Texture" id=4]
+[ext_resource path="res://ui/UpgradeTree.tscn" type="PackedScene" id=5]
 
 [node name="Overlay" type="Control"]
 anchor_left = 0.0113936
 anchor_top = -4.96705e-11
 anchor_right = 1.01139
 anchor_bottom = 1.0
-margin_left = 0.530319
-margin_top = 0.5
-margin_right = 0.530396
-margin_bottom = 0.5
+margin_left = 1.23741
+margin_top = -0.207153
+margin_right = 1.23743
+margin_bottom = -0.207153
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -37,3 +38,13 @@ margin_bottom = 65.5459
 rect_scale = Vector2( 2, 2 )
 texture_normal = ExtResource( 3 )
 texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UpgradeTree" parent="." instance=ExtResource( 5 )]
+margin_left = 24.2089
+margin_top = 101.511
+margin_right = 706.209
+margin_bottom = 499.511
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]
