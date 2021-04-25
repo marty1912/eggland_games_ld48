@@ -11,17 +11,23 @@ anchor_top = -4.96705e-11
 anchor_right = 1.01139
 anchor_bottom = 1.0
 margin_left = 0.530319
+margin_top = 0.5
 margin_right = 0.530396
+margin_bottom = 0.5
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MineralCounter" parent="." instance=ExtResource( 2 )]
-margin_left = 92.1561
-margin_top = 36.5312
-margin_right = 239.156
-margin_bottom = 83.5312
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -211.347
+margin_top = 48.0833
+margin_right = -64.3468
+margin_bottom = 95.0833
 
 [node name="TextureButton" type="TextureButton" parent="."]
 margin_left = 14.1421
