@@ -7,19 +7,12 @@ public class FloatingText : Position2D
 
     private Label valueText;
     private Tween tween;
+    private float value = 0;
+    private Vector2 offset = Vector2.Zero;
 
     private Vector2 velocity;
 
     public override void _Ready()
-    {
-    }
-
-    public override void _Process(float delta)
-    {
-        Position += velocity * delta;
-    }
-
-    public void Init(Vector2 offset, float value)
     {
         valueText = GetNode<Label>("Value");
         tween = GetNode<Tween>("Tween");
@@ -35,6 +28,19 @@ public class FloatingText : Position2D
         tween.InterpolateProperty(this, "modulate:a", 1.0f, 0.0f, 2f);
         //AddChild(tween);
         tween.Start();
+ 
+    }
+
+    public override void _Process(float delta)
+    {
+        Position += velocity * delta;
+    }
+
+    public void Init(Vector2 offset, float value)
+    {
+        this.offset = offset;
+        this.value = value;
+
     }
 
     public void Animate()
