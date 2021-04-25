@@ -69,7 +69,6 @@ public class ScanStateActive:ScanState{
     }
     override public void enter(){
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
-        GD.Print("being scanned..");
         material = new ShaderMaterial();
         material.Shader = shader;
         sprite.Material = material;
@@ -80,7 +79,6 @@ public class ScanStateActive:ScanState{
 
     }
     override public void exit(){
-        GD.Print("stopped scanning.");
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
         sprite.Material = null;
         this.scanner.RemoveChild(laser);
@@ -128,7 +126,6 @@ public class ScanStateSuccesful:ScanState{
     }
     override public void enter(){
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
-        GD.Print("scan successful");
         ShaderMaterial material = new ShaderMaterial();
         material.Shader = shader;
         sprite.Material = material;
@@ -138,7 +135,6 @@ public class ScanStateSuccesful:ScanState{
     }
 
     override public void exit(){
-        GD.Print("stopped scanning.");
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
         sprite.Material = null;
         this.scanner.RemoveChild(laser);
@@ -169,7 +165,6 @@ public class ScanStateAborted:ScanState{
     }
     override public void enter(){
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
-        GD.Print("scan not successful");
         ShaderMaterial material = new ShaderMaterial();
 
         material.Shader = shader;
@@ -178,7 +173,6 @@ public class ScanStateAborted:ScanState{
         laser.dissapear();
     }
     override public void exit(){
-        GD.Print("stopped scanning.");
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
         sprite.Material = null;
         scanner.RemoveChild(laser);
@@ -205,7 +199,6 @@ public class ScanStateHighlight:ScanState{
         this.scanner = scanner;
     }
     override public void enter(){
-        GD.Print("enter highlight.");
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
         material = new ShaderMaterial();
         material.Shader = shader;
@@ -214,7 +207,6 @@ public class ScanStateHighlight:ScanState{
 
     }
     override public void exit(){
-        GD.Print("stopped highlight.");
         Sprite sprite = (Sprite)(this.parent.GetMyNode2D().GetNode(this.parent.getSpriteNode()));
         sprite.Material = null;
     }
