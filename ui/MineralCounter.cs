@@ -10,7 +10,6 @@ public class MineralCounter : NinePatchRect
         TIMES_8
     }
 
-    private int MineralCount { get; set; }
     private Label mineralCountLabel;
     private static PackedScene floatingTextScene = (PackedScene) ResourceLoader.Load("res://ui/FloatingText.tscn");
     private MultiplierType multiplier = MultiplierType.NONE;
@@ -19,6 +18,9 @@ public class MineralCounter : NinePatchRect
     {
         var scanner = GetTree().CurrentScene.GetNode("Boat").GetNode("Scanner");
         scanner.Connect("addedMinerals", this, nameof(OnMineralsAdded));
+
+        GetParent().GetNode("UpgradeTree").Connect("buyUpgradeSignal", this, nameof(OnItemBought));
+
         mineralCountLabel = GetNode<Label>("Count");
     }
 
@@ -45,12 +47,21 @@ public class MineralCounter : NinePatchRect
             }
         }
 
-        MineralCount += val;
-        mineralCountLabel.Text = val.ToString();//Godot.Mathf.CeilToInt(MineralCount).ToString();
+        PlayerStats.Instance.MineralCount += val;
+        mineralCountLabel.Text = PlayerStats.Instance.MineralCount.ToString();
 
         var text = (FloatingText) floatingTextScene.Instance();
-        text.Init(new Vector2(40.0f, 60.0f), val);
-        //text.Animate();
+        text.Init(new Vector2(40.0f, 60.0f), val, FloatingText.ValueType.POSITIVE);
+        AddChild(text);
+    }
+
+    private void OnItemBought(UpgradeTree.UpgradeType type, int value)
+    {
+        PlayerStats.Instance.MineralCount -= value;
+        mineralCountLabel.Text = PlayerStats.Instance.MineralCount.ToString();
+
+        var text = (FloatingText) floatingTextScene.Instance();
+        text.Init(new Vector2(40.0f, 60.0f), value, FloatingText.ValueType.NEGATIVE);
         AddChild(text);
     }
 }

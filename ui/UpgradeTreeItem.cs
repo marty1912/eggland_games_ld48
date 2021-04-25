@@ -70,6 +70,11 @@ public class UpgradeTreeItem : Control
 
     private void _on_BuyButton_pressed()
     {
+        if (Price > PlayerStats.Instance.MineralCount)
+        {
+            return;
+        }
+
         if (upgradeType == UpgradeTree.UpgradeType.SHIELD)
         {
             PlayerStats.Instance.ShieldCount += 1;

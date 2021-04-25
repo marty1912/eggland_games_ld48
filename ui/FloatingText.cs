@@ -3,6 +3,12 @@ using System;
 
 public class FloatingText : Position2D
 {
+    public enum ValueType
+    {
+        POSITIVE,
+        NEGATIVE
+    }
+
     public string Value { get; set; }
 
     private Label valueText;
@@ -11,6 +17,7 @@ public class FloatingText : Position2D
     private Vector2 offset = Vector2.Zero;
 
     private Vector2 velocity;
+    private ValueType valueType;
 
     public override void _Ready()
     {
@@ -18,8 +25,20 @@ public class FloatingText : Position2D
         tween = GetNode<Tween>("Tween");
 
         var nextX = new Random().Next((int) offset.x - 10, (int) offset.x + 10);
+        string prefix;
 
-        valueText.Text = "+ " + value;
+        if (valueType == ValueType.POSITIVE)
+        {
+            prefix = "+ ";
+            valueText.Modulate = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+        }
+        else
+        {
+            prefix = "- ";
+            valueText.Modulate = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+        }
+
+        valueText.Text = prefix + value;
         velocity = new Vector2(nextX, offset.y);
 
         tween.StopAll();
@@ -33,10 +52,11 @@ public class FloatingText : Position2D
         Position += velocity * delta;
     }
 
-    public void Init(Vector2 offset, int value)
+    public void Init(Vector2 offset, int value, ValueType type)
     {
         this.offset = offset;
         this.value = value;
+        this.valueType = type;
     }
 
     public void _on_Tween_tween_all_completed()

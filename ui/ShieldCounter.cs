@@ -25,7 +25,6 @@ public class ShieldCounter : NinePatchRect
             return;
         }
 
-        GD.Print(PlayerStats.Instance.ShieldCount);
         countLabel.Text = PlayerStats.Instance.ShieldCount.ToString();
     }
 
