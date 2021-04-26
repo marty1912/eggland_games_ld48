@@ -4,12 +4,12 @@ using System;
 public class Boat : SliceableObject2D 
 {
 
-    [Export]
-    public NodePath BubblesRight = "ThrustBubblesRight";
+	[Export]
+	public NodePath BubblesRight = "ThrustBubblesRight";
 
-    [Export]
-    public NodePath BubblesLeft = "ThrustBubblesLeft";
-    public Boolean block_rotation = false;
+	[Export]
+	public NodePath BubblesLeft = "ThrustBubblesLeft";
+	public Boolean block_rotation = false;
 
 	public override NodePath getmeshNodename(){
 
@@ -27,23 +27,23 @@ public class Boat : SliceableObject2D
 		return current_direction.getCollision2Nodename();
 
 	}
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
+	// Declare member variables here. Examples:
+	// private int a = 2;
+	// private string b = "text";
 
-    // Called when the node enters the scene tree for the first time.
-    public CPUParticles2D bubbles_right;
-    public CPUParticles2D bubbles_left;
-    public override void _Ready()
+	// Called when the node enters the scene tree for the first time.
+	public CPUParticles2D bubbles_right;
+	public CPUParticles2D bubbles_left;
+	public override void _Ready()
 	{
 		this.setDirection(new DirectionStateRight(this));
 		GlobalEvents.Instance.Connect("SpeedUpgrade", this, nameof(SpeedUpgrade));
-        bubbles_right = (CPUParticles2D)GetNode(BubblesRight);
-        bubbles_left = (CPUParticles2D)GetNode(BubblesLeft);
-        GD.Print("bubbles:",bubbles_left);
+		bubbles_right = (CPUParticles2D)GetNode(BubblesRight);
+		bubbles_left = (CPUParticles2D)GetNode(BubblesLeft);
+		GD.Print("bubbles:",bubbles_left);
 
 
-    }
+	}
 
 	/// <summary>
 	/// this is the amount of steering force we can have. each direction has two  
@@ -144,7 +144,7 @@ public class Boat : SliceableObject2D
 }
 public abstract class DirectionState{
 	public Boat parent;
-    public CPUParticles2D bubbles;
+	public CPUParticles2D bubbles;
 	public DirectionState(Boat parent){
 		this.parent = parent;
 	}
@@ -164,9 +164,9 @@ class DirectionStateLeft : DirectionState{
 	public DirectionStateLeft(Boat parent) : base(parent){
 	
 	}
-    override public void enter(){
-        bubbles = parent.bubbles_left;
-        ((MeshInstance2D)this.parent.GetNode("SpriteLeftMesh")).Visible = true;
+	override public void enter(){
+		bubbles = parent.bubbles_left;
+		((MeshInstance2D)this.parent.GetNode("SpriteLeftMesh")).Visible = true;
 		((MeshInstance2D)this.parent.GetNode("SpriteRightMesh")).Visible= false;
 
 		//((CollisionPolygon2D)this.parent.GetNode("CollisionLeft")).Disabled = false;
@@ -193,16 +193,16 @@ override public Vector2 getInputThrust(){
 		if (Input.IsActionPressed("GO_LEFT"))
 		{ 
 			thrust.x -= parent.thrust_forward;
-            if (bubbles != null)
-            {
-                bubbles.Visible = true;
-            }
-        }
-        else{
-            if (bubbles != null)
-            {
-                bubbles.Visible = false;
-            }
+			if (bubbles != null)
+			{
+				bubbles.Visible = true;
+			}
+		}
+		else{
+			if (bubbles != null)
+			{
+				bubbles.Visible = false;
+			}
 		}
 		if (Input.IsActionPressed("GO_RIGHT"))
 		{ 
@@ -238,7 +238,7 @@ class DirectionStateRight: DirectionState{
 	}
 	override public void enter(){
 
-        bubbles = parent.bubbles_right;
+		bubbles = parent.bubbles_right;
 		//
 		//((Sprite)this.parent.GetNode("SpriteRight")).Visible = true;
 		((MeshInstance2D)this.parent.GetNode("SpriteRightMesh")).Visible = true;
@@ -268,17 +268,17 @@ override public Vector2 getInputThrust(){
 		if (Input.IsActionPressed("GO_RIGHT"))
 		{ 
 			thrust.x += parent.thrust_forward;
-            if (bubbles != null)
-            {
-                bubbles.Visible = true;
-            }
-        }
-        else{
-            if (bubbles != null)
-            {
-                bubbles.Visible = false;
-            }
-        }
+			if (bubbles != null)
+			{
+				bubbles.Visible = true;
+			}
+		}
+		else{
+			if (bubbles != null)
+			{
+				bubbles.Visible = false;
+			}
+		}
 		if (Input.IsActionPressed("GO_LEFT"))
 		{ thrust.x += parent.thrust_backward; }
 

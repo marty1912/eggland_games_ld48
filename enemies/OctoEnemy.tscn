@@ -12,9 +12,11 @@ radius = 29.2092
 
 [node name="OctoEnemy" type="RigidBody2D"]
 mode = 2
+mass = 0.1
 gravity_scale = 0.0
-linear_damp = 1.0
+linear_damp = 0.8
 script = ExtResource( 2 )
+maxMovementForce = 200.0
 
 [node name="LightVisibleMaker" type="Sprite" parent="."]
 visible = false
