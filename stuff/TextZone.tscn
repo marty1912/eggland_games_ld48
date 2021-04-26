@@ -30,9 +30,9 @@ __meta__ = {
 [node name="Label2" type="Label" parent="."]
 material = SubResource( 1 )
 margin_left = -95.0
-margin_top = -143.0
+margin_top = -211.0
 margin_right = 93.0
-margin_bottom = -102.0
+margin_bottom = -154.0
 theme = ExtResource( 1 )
 align = 1
 valign = 1
@@ -43,10 +43,10 @@ __meta__ = {
 
 [node name="Label3" type="Label" parent="."]
 material = SubResource( 1 )
-margin_left = -94.0
-margin_top = -206.0
+margin_left = -107.0
+margin_top = -286.0
 margin_right = 94.0
-margin_bottom = -165.0
+margin_bottom = -243.0
 theme = ExtResource( 1 )
 align = 1
 valign = 1

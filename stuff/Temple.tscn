@@ -28,10 +28,10 @@ scale = Vector2( 33.7822, 12.0345 )
 texture = ExtResource( 3 )
 
 [node name="Sprite2" type="Sprite" parent="."]
+visible = false
 material = SubResource( 2 )
 position = Vector2( 26.4676, -148.646 )
 scale = Vector2( 0.136, 0.136 )
 texture = ExtResource( 4 )
-
 [connection signal="body_entered" from="." to="." method="_on_Temple_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Temple_body_exited"]

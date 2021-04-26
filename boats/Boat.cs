@@ -66,14 +66,18 @@ public class Boat : SliceableObject2D
 	public DirectionState current_direction = null;
 
 
-	/// <summary>
-	/// upgrades our laser stats
-	/// </summary>
-	public void SpeedUpgrade(){
-		thrust_up *= 2;
-		thrust_down *= 2;
-		thrust_forward *= 2;
-		thrust_backward *= 2;
+    [Export]
+    public float upgradeMult = 1.4f;
+
+    /// <summary>
+    /// upgrades our laser stats
+    /// </summary>
+    public void SpeedUpgrade(){
+
+		thrust_up *= upgradeMult;
+		thrust_down *= upgradeMult;
+		thrust_forward *= upgradeMult;
+		thrust_backward *= upgradeMult;
 		GD.Print("Speed upgrade installed");
 
 	}
