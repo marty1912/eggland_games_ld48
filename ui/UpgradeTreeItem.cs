@@ -4,8 +4,6 @@ using System;
 public class UpgradeTreeItem : Control
 {
 
-    [Export] 
-    public int[] prices = {100,200,300};
     private bool _bought = false;
     public bool Bought {
         get
@@ -109,6 +107,8 @@ public class UpgradeTreeItem : Control
         Bought = false;
 
         PlayerStats.Instance.Connect("MineralCountUpdated", this, nameof(onMineralCountUpdated));
+        // this is done so we update the button visibility.
+        this.Price = Price;
     }
 
 

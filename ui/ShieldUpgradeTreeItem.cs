@@ -33,6 +33,8 @@ public class ShieldUpgradeTreeItem :UpgradeTreeItem
         buyButton.Text = Price.ToString();
     }
 
+    [Export] 
+    public int[] Prices = {128,2056,5096,5096};
 
 
     public override void buyItem()
@@ -49,6 +51,7 @@ public class ShieldUpgradeTreeItem :UpgradeTreeItem
 
         base._Ready();
         PlayerStats.Instance.Connect("ShieldCountUpdated", this, nameof(onShieldCountupdate));
+        Price = Prices[PlayerStats.Instance.ShieldCount];
 
     }
 
@@ -62,7 +65,7 @@ public class ShieldUpgradeTreeItem :UpgradeTreeItem
                 buyButton.Disabled = false;
             }
 
-        Price = prices[PlayerStats.Instance.ShieldCount - 1];
+        Price = Prices[PlayerStats.Instance.ShieldCount];
     }
 
 }
