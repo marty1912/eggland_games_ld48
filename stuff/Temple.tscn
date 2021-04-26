@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://stuff/Temple.cs" type="Script" id=1]
 [ext_resource path="res://stuff/temple.png" type="Texture" id=2]
+[ext_resource path="res://assets/light_circle_smooth.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 97.4273, 58.4541 )
@@ -16,5 +17,11 @@ shape = SubResource( 1 )
 position = Vector2( -38.8909, 143.543 )
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 53.2113, 20.7931 )
+scale = Vector2( 33.7822, 12.0345 )
+texture = ExtResource( 3 )
+
 [connection signal="body_entered" from="." to="." method="_on_Temple_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Temple_body_exited"]

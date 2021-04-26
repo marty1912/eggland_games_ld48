@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://stuff/final_button_active.png" type="Texture" id=1]
 [ext_resource path="res://stuff/final_button_pressed.png" type="Texture" id=2]
 [ext_resource path="res://stuff/FinalButton.cs" type="Script" id=3]
+[ext_resource path="res://assets/light_circle_smooth.png" type="Texture" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 105.739
@@ -23,5 +24,11 @@ texture = ExtResource( 2 )
 position = Vector2( -21.5577, -155.184 )
 rotation = 1.5708
 shape = SubResource( 1 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 1.02271, -0.104187 )
+scale = Vector2( 76.1502, 43.042 )
+texture = ExtResource( 4 )
+
 [connection signal="body_entered" from="." to="." method="_on_FinalButton_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_FinalButton_body_exited"]

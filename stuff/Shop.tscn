@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://stuff/Shop.cs" type="Script" id=1]
 [ext_resource path="res://stuff/Shop.png" type="Texture" id=2]
+[ext_resource path="res://assets/light_circle_smooth.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 97.4273, 58.4541 )
@@ -29,5 +30,11 @@ shape = SubResource( 1 )
 scale = Vector2( 0.25, 0.25 )
 mesh = SubResource( 2 )
 texture = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 4.05779, 3.74172 )
+scale = Vector2( 29.2813, 20.8437 )
+texture = ExtResource( 3 )
+
 [connection signal="body_entered" from="." to="." method="_on_Shop_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Shop_body_exited"]

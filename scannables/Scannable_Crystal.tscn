@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scannables/crystal1.png" type="Texture" id=1]
 [ext_resource path="res://scannables/Scannable_Static.cs" type="Script" id=2]
 [ext_resource path="res://scannables/Scannable_scanning.shader" type="Shader" id=3]
+[ext_resource path="res://assets/light_circle_smooth.png" type="Texture" id=4]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
@@ -23,3 +24,8 @@ texture = ExtResource( 1 )
 visible = false
 position = Vector2( 0.280609, 0 )
 polygon = PoolVector2Array( 3.37135, -10.6086, 9.71184, 2.40613, 15.7186, 3.07355, 7.70958, 23.7636, -1.96802, 29.4366, -15.6501, 26.767, -16.3175, -0.597267 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( -4.42525, 16.7095 )
+scale = Vector2( 1.80613, 2.08707 )
+texture = ExtResource( 4 )
