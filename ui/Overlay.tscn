@@ -1,9 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/Overlay.cs" type="Script" id=1]
 [ext_resource path="res://ui/MineralCounter.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/ui/upgrade_button_normal.png" type="Texture" id=3]
-[ext_resource path="res://assets/ui/upgrade_button_pressed.png" type="Texture" id=4]
 [ext_resource path="res://ui/UpgradeTree.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ui/ShieldCounter.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/GameOverly.tscn" type="PackedScene" id=7]
@@ -32,18 +30,6 @@ margin_top = 48.0
 margin_right = -66.996
 margin_bottom = 95.0
 
-[node name="TextureButton" type="TextureButton" parent="."]
-margin_left = 14.1421
-margin_top = 25.5459
-margin_right = 54.1421
-margin_bottom = 65.5459
-rect_scale = Vector2( 2, 2 )
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="UpgradeTree" parent="." instance=ExtResource( 5 )]
 margin_left = 176.607
 margin_top = 279.757
@@ -65,4 +51,3 @@ margin_left = 113.326
 margin_top = 109.857
 margin_right = 919.326
 margin_bottom = 507.857
-[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]
