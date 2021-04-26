@@ -4,4 +4,5 @@
 ParallaxBackground_Placeholder.tscn
 PlaneTest.cs
 export
+export_web
 *.zip

@@ -55,12 +55,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="."]
-anchor_bottom = 0.025
-margin_left = 337.67
-margin_top = 262.009
-margin_right = 438.67
-margin_bottom = 293.059
+[node name="RetryButton" type="Button" parent="."]
+margin_left = 319.312
+margin_top = 240.643
+margin_right = 474.312
+margin_bottom = 294.643
 theme = ExtResource( 4 )
 text = "Retry"
 script = ExtResource( 2 )
@@ -69,4 +68,4 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="."]
-[connection signal="button_down" from="Button" to="Button" method="_on_Button_button_down"]
+[connection signal="button_down" from="RetryButton" to="RetryButton" method="_on_RetryButton_button_down"]

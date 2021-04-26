@@ -13,9 +13,14 @@ public class ButtonRestart : Button
         
     }
 
+    public void _on_RetryButton_button_down(){
+        _on_Button_button_down();
+
+    }
     public void _on_Button_button_down(){
         PlayerStats.Instance.reset();
-        GetTree().ChangeScene("res://levels/Level2.tscn");
+        GD.Print("button restart pressed");
+        ((Transition)GetNode("/root/Transition")).fadeTo("res://levels/Level2.tscn");
 
     }
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.

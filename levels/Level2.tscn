@@ -455,6 +455,7 @@ _data = {
 position = Vector2( 2000, -3000 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 5
 
 [node name="Overlay" parent="CanvasLayer" instance=ExtResource( 6 )]
 
@@ -557,7 +558,7 @@ __meta__ = {
 
 [node name="TextZone5" parent="." instance=ExtResource( 10 )]
 position = Vector2( 3318.48, 1994.9 )
-Text = PoolStringArray( "Nobody knows what happened to the other species.", "Squibs are the last surviving inhabitants of Europa.", "This is a squib." )
+Text = PoolStringArray( "This is a squib. Nobody knows what happened to the other species. Squibs are the last surviving inhabitants of Europa. " )
 
 [node name="TextZone2" parent="." instance=ExtResource( 10 )]
 position = Vector2( -93.5402, -41.2834 )
@@ -1467,7 +1468,7 @@ position = Vector2( 3841.68, 1338.17 )
 scale = Vector2( 0.12, 0.12 )
 
 [node name="Boat" parent="." instance=ExtResource( 3 )]
-position = Vector2( 74.7542, 118.88 )
+position = Vector2( 114.164, 94.6724 )
 mass = 0.51
 thrust_up = -25.0
 thrust_down = 25.0
@@ -1503,7 +1504,7 @@ __meta__ = {
 
 [node name="TextZone6" parent="." instance=ExtResource( 10 )]
 position = Vector2( 3386.85, 7475.74 )
-Text = PoolStringArray( "Some might expect an explosion or something else cool. But we didn\'t think anyone would see this.", "Congratulaitons I guess.", "Yes Boom you did it! You killed everyone on this planet. Including yourself." )
+Text = PoolStringArray( "Some might expect an explosion or something else cool. But we didn\'t think anyone would see this. Congratulaitons I guess. Yes Boom you did it! You killed everyone on this planet. Including yourself." )
 
 [node name="TextZone7" parent="." instance=ExtResource( 10 )]
 position = Vector2( -2731.81, 633.644 )

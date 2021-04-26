@@ -29,7 +29,7 @@ public class EnemyDirectionStateRight: EnemyDirectionState{
         laser.Position = new Vector2(Mathf.Abs(laser.Position.x),laser.Position.y);
     }
     public override void exit(){
-        GD.Print("exit dir right;");
+        //GD.Print("exit dir right;");
     }
 
 

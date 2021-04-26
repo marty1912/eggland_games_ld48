@@ -32,7 +32,7 @@ public class EnemyDirectionStateLeft : EnemyDirectionState{
     }
     public override void exit(){
 
-        GD.Print("exit dir left;");
+        //GD.Print("exit dir left;");
     }
 
 

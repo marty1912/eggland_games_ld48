@@ -43,10 +43,10 @@ anims/fade = SubResource( 1 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-margin_left = -71.7344
-margin_top = -28.3162
-margin_right = 1074.27
-margin_bottom = 640.684
+margin_left = -977.0
+margin_top = -706.0
+margin_right = 2704.0
+margin_bottom = 1944.0
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {
