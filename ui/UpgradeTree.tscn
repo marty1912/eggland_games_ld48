@@ -4,10 +4,10 @@
 [ext_resource path="res://ui/UpgradeTree.cs" type="Script" id=2]
 [ext_resource path="res://ui/UpgradeTreeItem.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/ui/icon_upgrade_boost.resized.png" type="Texture" id=4]
-[ext_resource path="res://assets/ui/shield.png" type="Texture" id=5]
 [ext_resource path="res://ui/LaserUpgradeTreeItem.cs" type="Script" id=6]
 [ext_resource path="res://ui/ShieldUpgradeTreeItem.cs" type="Script" id=7]
 [ext_resource path="res://assets/ui/mineral_small.resized.png" type="Texture" id=8]
+[ext_resource path="res://ui/SpeedUpgradeTreeItem.cs" type="Script" id=9]
 
 [node name="UpgradeTree" type="NinePatchRect"]
 anchor_left = -0.000976562
@@ -36,8 +36,6 @@ margin_top = 72.7245
 margin_right = 197.318
 margin_bottom = 215.725
 script = ExtResource( 7 )
-Price = 200
-upgradeIconTexture = ExtResource( 5 )
 
 [node name="LaserUpgrade_X2" parent="." instance=ExtResource( 3 )]
 margin_left = 235.21
@@ -54,7 +52,7 @@ margin_left = 440.775
 margin_top = 69.008
 margin_right = 601.775
 margin_bottom = 212.008
-script = ExtResource( 6 )
+script = ExtResource( 9 )
 Price = 1024
 upgradeIconTexture = ExtResource( 4 )
-upgradeType = 1
+upgradeType = 2

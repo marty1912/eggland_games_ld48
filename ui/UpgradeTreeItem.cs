@@ -3,6 +3,9 @@ using System;
 
 public class UpgradeTreeItem : Control
 {
+
+    [Export] 
+    public int[] prices = {100,200,300};
     private bool _bought = false;
     public bool Bought {
         get
@@ -57,21 +60,33 @@ public class UpgradeTreeItem : Control
             price = value;
             GD.Print("price:",price,"mineralcount:",PlayerStats.Instance.MineralCount);
             // before we init the text..
+            updateButton();
+
+
+        }
+        get
+        {
+            return price;
+        }
+    }
+
+/// <summary>
+/// updates our button state
+/// </summary>
+    public virtual void updateButton(){
+
+            GD.Print("update button baseitem");
+
             if(buyButton == null){
                 return;
             }
-            if(price > PlayerStats.Instance.MineralCount){
+            if(Price > PlayerStats.Instance.MineralCount){
                 buyButton.Disabled = true;
             }
             else{
                 buyButton.Disabled = false;
             }
             buyButton.Text = Price.ToString();
-        }
-        get
-        {
-            return price;
-        }
     }
 
     [Export]
@@ -98,13 +113,7 @@ public class UpgradeTreeItem : Control
 
 
     private void onMineralCountUpdated(int count){
-            if (PlayerStats.Instance.MineralCount < this.Price)
-            {
-                buyButton.Disabled = true;
-            }
-            else{
-                buyButton.Disabled = false;
-            }
+        updateButton();
     }
 
 
@@ -116,10 +125,6 @@ public class UpgradeTreeItem : Control
             return;
         }
 
-        if (upgradeType == UpgradeTree.UpgradeType.SHIELD)
-        {
-            PlayerStats.Instance.ShieldCount += 1;
-        }
         GD.Print("will now buy item..");
         buyItem();
     }

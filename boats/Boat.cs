@@ -63,6 +63,7 @@ public class Boat : SliceableObject2D
         thrust_down *= 2;
         thrust_forward *= 2;
         thrust_backward *= 2;
+        GD.Print("Speed upgrade installed");
 
     }
  
