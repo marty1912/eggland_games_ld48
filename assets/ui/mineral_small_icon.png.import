@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mineral.png-fe1275cb710c0b1330e89745ab6c6f65.stex"
+path="res://.import/mineral_small_icon.png-d2bf915750f8fc5f51ffbde5b37aab8f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ui/mineral.png"
-dest_files=[ "res://.import/mineral.png-fe1275cb710c0b1330e89745ab6c6f65.stex" ]
+source_file="res://assets/ui/mineral_small_icon.png"
+dest_files=[ "res://.import/mineral_small_icon.png-d2bf915750f8fc5f51ffbde5b37aab8f.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

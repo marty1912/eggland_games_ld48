@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/upgrade_outline.png-733c1024811972ce83415bff33a7652b.stex"
+path="res://.import/shield.png-86235a4c92851a439942c336abe17479.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/upgrade_outline.png"
-dest_files=[ "res://.import/upgrade_outline.png-733c1024811972ce83415bff33a7652b.stex" ]
+source_file="res://assets/ui/shield.png"
+dest_files=[ "res://.import/shield.png-86235a4c92851a439942c336abe17479.stex" ]
 
 [params]
 

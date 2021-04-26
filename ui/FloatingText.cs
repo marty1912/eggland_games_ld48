@@ -3,14 +3,21 @@ using System;
 
 public class FloatingText : Position2D
 {
+    public enum ValueType
+    {
+        POSITIVE,
+        NEGATIVE
+    }
+
     public string Value { get; set; }
 
     private Label valueText;
     private Tween tween;
-    private float value = 0;
+    private int value = 0;
     private Vector2 offset = Vector2.Zero;
 
     private Vector2 velocity;
+    private ValueType valueType;
 
     public override void _Ready()
     {
@@ -18,15 +25,24 @@ public class FloatingText : Position2D
         tween = GetNode<Tween>("Tween");
 
         var nextX = new Random().Next((int) offset.x - 10, (int) offset.x + 10);
-        //var nextY = new Random().Next((int) offset.y - 10, (int) offset.y + 10);
+        string prefix;
 
-        valueText.Text = "+ " + value;
+        if (valueType == ValueType.POSITIVE)
+        {
+            prefix = "+ ";
+            valueText.Modulate = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+        }
+        else
+        {
+            prefix = "- ";
+            valueText.Modulate = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+        }
+
+        valueText.Text = prefix + value;
         velocity = new Vector2(nextX, offset.y);
 
         tween.StopAll();
-        //tween.InterpolateProperty(this, "Scale", Scale, new Vector2(0.2f, 0.2f), 1.0f, Tween.TransitionType.Linear, Tween.EaseType.Out);
         tween.InterpolateProperty(this, "modulate:a", 1.0f, 0.0f, 2f);
-        //AddChild(tween);
         tween.Start();
  
     }
@@ -36,26 +52,15 @@ public class FloatingText : Position2D
         Position += velocity * delta;
     }
 
-    public void Init(Vector2 offset, float value)
+    public void Init(Vector2 offset, int value, ValueType type)
     {
         this.offset = offset;
         this.value = value;
-
-    }
-
-    public void Animate()
-    {
-        
+        this.valueType = type;
     }
 
     public void _on_Tween_tween_all_completed()
     {
-        GD.Print("Completed tween ------------->");
+        QueueFree();
     }
-
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
 }

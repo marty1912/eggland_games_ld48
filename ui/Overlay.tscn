@@ -1,27 +1,35 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ui/Overlay.cs" type="Script" id=1]
 [ext_resource path="res://ui/MineralCounter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/ui/upgrade_button_normal.png" type="Texture" id=3]
 [ext_resource path="res://assets/ui/upgrade_button_pressed.png" type="Texture" id=4]
+[ext_resource path="res://ui/UpgradeTree.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/ShieldCounter.tscn" type="PackedScene" id=6]
 
 [node name="Overlay" type="Control"]
 anchor_left = 0.0113936
 anchor_top = -4.96705e-11
 anchor_right = 1.01139
 anchor_bottom = 1.0
-margin_left = 0.530319
-margin_right = 0.530396
+margin_left = 0.530256
+margin_top = -0.207153
+margin_right = 0.530273
+margin_bottom = -0.207153
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MineralCounter" parent="." instance=ExtResource( 2 )]
-margin_left = 92.1561
-margin_top = 36.5312
-margin_right = 239.156
-margin_bottom = 83.5312
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -213.996
+margin_top = 48.0
+margin_right = -66.996
+margin_bottom = 95.0
 
 [node name="TextureButton" type="TextureButton" parent="."]
 margin_left = 14.1421
@@ -31,3 +39,25 @@ margin_bottom = 65.5459
 rect_scale = Vector2( 2, 2 )
 texture_normal = ExtResource( 3 )
 texture_pressed = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UpgradeTree" parent="." instance=ExtResource( 5 )]
+anchor_top = 0.00201187
+anchor_bottom = 0.00201187
+margin_left = 24.0879
+margin_top = 108.218
+margin_right = 516.088
+margin_bottom = 506.218
+
+[node name="ShieldCounter" parent="." instance=ExtResource( 6 )]
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -423.996
+margin_top = 48.0
+margin_right = -276.996
+margin_bottom = 95.0
+[connection signal="pressed" from="TextureButton" to="." method="_on_TextureButton_pressed"]
