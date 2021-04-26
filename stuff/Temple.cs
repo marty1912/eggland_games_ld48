@@ -3,27 +3,27 @@ using System;
 
 public class Temple : Area2D
 {
-    // Declare member variables here. Examples:
-    // private int a = 2;
-    // private string b = "text";
+	// Declare member variables here. Examples:
+	// private int a = 2;
+	// private string b = "text";
 
-    [Export]
-    public NodePath planSprite = "Sprite2";
+	[Export]
+	public NodePath planSprite = "Sprite2";
 
-    public Sprite plan;
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+	public Sprite plan;
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
 	{
-        plan = (Sprite)GetNode(planSprite);
+		plan = (Sprite)GetNode(planSprite);
 
-        plan.Visible = false;
+		plan.Visible = false;
 
-    }
+	}
 	public void _on_Temple_body_entered(Node body){
 		GD.Print("temple enter");
 		if (body is Boat)
 		{
-            plan.Visible = true;
+			plan.Visible = true;
 			//GlobalEvents.Instance.EmitSignal("TempleEnter");
 		}
 	}
@@ -31,7 +31,7 @@ public class Temple : Area2D
 		GD.Print("temple exit");
 		if (body is Boat)
 		{
-            plan.Visible = false;
+			plan.Visible = false;
 			//GlobalEvents.Instance.EmitSignal("TempleExit");
 		}
 	}

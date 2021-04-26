@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://BubbleParticles.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/plants/plant3.png" type="Texture" id=3]
+
+[node name="Sprite3" type="Sprite"]
+position = Vector2( 684.923, -288.651 )
+scale = Vector2( 0.494445, 0.399969 )
+texture = ExtResource( 3 )
+
+[node name="CPUParticles2D3" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1.21558, 112.992 )
+scale = Vector2( 0.665809, 0.818463 )

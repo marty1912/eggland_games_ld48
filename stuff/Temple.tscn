@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://stuff/Temple.cs" type="Script" id=1]
 [ext_resource path="res://stuff/temple.png" type="Texture" id=2]
@@ -7,6 +7,9 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 97.4273, 58.4541 )
+
+[sub_resource type="CanvasItemMaterial" id=2]
+light_mode = 1
 
 [node name="Temple" type="Area2D"]
 script = ExtResource( 1 )
@@ -25,8 +28,10 @@ scale = Vector2( 33.7822, 12.0345 )
 texture = ExtResource( 3 )
 
 [node name="Sprite2" type="Sprite" parent="."]
-position = Vector2( 9.06946, -254.719 )
-scale = Vector2( 0.25, 0.25 )
+material = SubResource( 2 )
+position = Vector2( 26.4676, -148.646 )
+scale = Vector2( 0.136, 0.136 )
 texture = ExtResource( 4 )
+
 [connection signal="body_entered" from="." to="." method="_on_Temple_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Temple_body_exited"]
