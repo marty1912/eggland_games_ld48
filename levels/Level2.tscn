@@ -9,6 +9,9 @@
 [ext_resource path="res://FPSLabel.gd" type="Script" id=7]
 [ext_resource path="res://stuff/Shop.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/tilemap_cropped.resized.png" type="Texture" id=9]
+[ext_resource path="res://stuff/Temple.tscn" type="PackedScene" id=10]
+[ext_resource path="res://stuff/TextZone.tscn" type="PackedScene" id=11]
+[ext_resource path="res://stuff/FinalButton.tscn" type="PackedScene" id=12]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
@@ -422,8 +425,17 @@ position = Vector2( 45.2294, 133.823 )
 [node name="Scannable_Rock4" parent="." instance=ExtResource( 2 )]
 position = Vector2( 116.976, 195.272 )
 
+[node name="TextureButton" parent="." instance=ExtResource( 12 )]
+
+[node name="Temple" parent="." instance=ExtResource( 10 )]
+position = Vector2( -226.53, 120.816 )
+
 [node name="Scannable_Rock5" parent="." instance=ExtResource( 2 )]
 position = Vector2( 149.819, 211.164 )
+
+[node name="TextZone" parent="." instance=ExtResource( 11 )]
+position = Vector2( -184.999, 98.1629 )
+Text = "Test Text..."
 
 [node name="Scannable_Rock2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 972.258, 860.681 )
@@ -441,3 +453,16 @@ position = Vector2( 1192.28, 610.408 )
 
 [node name="Shop" parent="." instance=ExtResource( 8 )]
 position = Vector2( 344.778, -67.0387 )
+
+[node name="Boat" parent="." instance=ExtResource( 3 )]
+position = Vector2( 150.519, 98.266 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Boat"]
+position = Vector2( -67.7593, -83.5828 )
+color = Color( 0.258824, 0.372549, 0.423529, 1 )
+
+[node name="Camera2D" type="Camera2D" parent="Boat"]
+position = Vector2( 79.5166, 16.867 )
+rotation = -0.895354
+scale = Vector2( 18.0792, 31.2294 )
+current = true
