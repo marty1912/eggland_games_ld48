@@ -30,6 +30,7 @@ public class Boat : SliceableObject2D
     public override void _Ready()
     {
         this.setDirection(new DirectionStateRight(this));
+        GlobalEvents.Instance.Connect("SpeedUpgrade", this, nameof(SpeedUpgrade));
 
     }
 
@@ -43,22 +44,40 @@ public class Boat : SliceableObject2D
     [Export] public float thrust_backward = -5;
     public float direction = 1;
 
-    public int shields = 0;
 
     [Signal]
     public delegate void BoatDestroyed();
     public void getDestroyed(){
         EmitSignal(nameof(BoatDestroyed));
         GD.Print("boat got destroyed..");
+        GlobalEvents.Instance.EmitSignal("GameOver");
     }
     public DirectionState current_direction = null;
 
-    public void addShield(){
-        shields++;
+
+    /// <summary>
+    /// upgrades our laser stats
+    /// </summary>
+    public void SpeedUpgrade(){
+        thrust_up *= 2;
+        thrust_down *= 2;
+        thrust_forward *= 2;
+        thrust_backward *= 2;
+
     }
-    public void removeShield(){
-        shields--;
+ 
+    
+    
+    public int Shields{
+        get{
+            return PlayerStats.Instance.ShieldCount;
+        }
+        set{
+            PlayerStats.Instance.ShieldCount = value;
+        }
     }
+
+
     public void setDirection(DirectionState direction) {
         if(block_rotation){
             return;

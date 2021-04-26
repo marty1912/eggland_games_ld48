@@ -5,7 +5,7 @@ public class Scannable_Rock : RigidBody2D, IScannable
 {
 
     [Export]
-    float minerals = 100;
+    float minerals = 10000;
 
 
     public override void _Ready()

@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/ui/window_bg_grey_transparent.png" type="Texture" id=1]
+[ext_resource path="res://ui/ButtonRestart.cs" type="Script" id=2]
+[ext_resource path="res://ui/GameOverlay.cs" type="Script" id=3]
+[ext_resource path="res://ui/themes/default_theme.tres" type="Theme" id=4]
+[ext_resource path="res://ui/themes/default_font.tres" type="DynamicFont" id=5]
+
+[node name="GameOverlay" type="NinePatchRect"]
+anchor_left = -0.000976562
+anchor_top = 0.000833333
+anchor_right = -0.000976562
+anchor_bottom = 0.000833333
+margin_left = 117.33
+margin_top = 93.8394
+margin_right = 923.33
+margin_bottom = 491.839
+texture = ExtResource( 1 )
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 277.593
+margin_top = 95.9277
+margin_right = 486.593
+margin_bottom = 180.928
+theme = ExtResource( 4 )
+custom_fonts/font = ExtResource( 5 )
+text = "GAME OVER"
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+margin_left = 190.828
+margin_top = 164.004
+margin_right = 615.828
+margin_bottom = 249.004
+theme = ExtResource( 4 )
+custom_fonts/font = ExtResource( 5 )
+text = "Y.O.U. is destroyed, The squids win."
+align = 1
+valign = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+anchor_bottom = 0.025
+margin_left = 337.67
+margin_top = 262.009
+margin_right = 438.67
+margin_bottom = 293.059
+theme = ExtResource( 4 )
+text = "Retry"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="button_down" from="Button" to="Button" method="_on_Button_button_down"]

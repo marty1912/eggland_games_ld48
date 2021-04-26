@@ -26,12 +26,12 @@ public class EnemyShootState : EnemyState{
 /// </summary>
 /// <param name="boat"></param>
 public void shootBoat(Boat boat){
-        if (boat.shields == 0)
+        if (boat.Shields == 0)
         {
             slicer.sliceBoat(player_boat, Vector2.Zero);
         }
         else{
-            boat.removeShield();
+            boat.Shields--;
         }
     }
     public override void enter(){
@@ -44,7 +44,11 @@ public void shootBoat(Boat boat){
         laser.start_particles.Visible = true;
         laser.startShooting(0.1f);
         tween.StopAll();
-        shootBoat(player_boat);
+
+        if (haveLineOfSight(player_boat))
+        {
+            shootBoat(player_boat);
+        }
     }
     public override void exit(){
         GD.Print("exit shoot state.");

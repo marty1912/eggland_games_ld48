@@ -9,12 +9,24 @@ public class BoatScanner : Scanner
     // private int a = 2;
     // private string b = "text";
 
+/// <summary>
+/// upgrades our laser stats
+/// </summary>
+    public void LaserUpgrade(){
+        MaxDistance *= 2;
+        mineralMultiplier *= 2;
+        maxObjects *= 2;
+
+    }
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        base._Ready();
         MaxDistance = 100;
-
+        GlobalEvents.Instance.Connect("LaserUpgrade", this, nameof(LaserUpgrade));
+        maxObjects = 1;
     }
+
     public override void _PhysicsProcess(float delta)
     {
         base._PhysicsProcess(delta);

@@ -39,13 +39,40 @@ public class UpgradeTreeItem : Control
     [Signal]
     public delegate void buyItemSignal(UpgradeTree.UpgradeType type, int price);
 
-    public void buyItem()
+    public virtual void buyItem()
     {
-        EmitSignal(nameof(buyItemSignal), upgradeType, Price);
+        GD.Print("buy item for the low price of.",Price);
+        PlayerStats.Instance.MineralCount -= Price;
+
+        // EmitSignal(nameof(buyItemSignal), upgradeType, Price);
     }
 
+    private int price = 0;
+
     [Export]
-    public int Price = 200;
+    public int Price
+    {
+        set
+        {
+            price = value;
+            GD.Print("price:",price,"mineralcount:",PlayerStats.Instance.MineralCount);
+            // before we init the text..
+            if(buyButton == null){
+                return;
+            }
+            if(price > PlayerStats.Instance.MineralCount){
+                buyButton.Disabled = true;
+            }
+            else{
+                buyButton.Disabled = false;
+            }
+            buyButton.Text = Price.ToString();
+        }
+        get
+        {
+            return price;
+        }
+    }
 
     [Export]
     public Texture upgradeIconTexture;
@@ -54,7 +81,7 @@ public class UpgradeTreeItem : Control
     public UpgradeTree.UpgradeType upgradeType;
 
     private NinePatchRect outline;
-    private Button buyButton;
+    public Button buyButton;
     private TextureRect _upgradeIcon;
 
     public override void _Ready()
@@ -65,10 +92,24 @@ public class UpgradeTreeItem : Control
         buyButton.Text = Price.ToString();
         _upgradeIcon.Texture = upgradeIconTexture;
         Bought = false;
+
+        PlayerStats.Instance.Connect("MineralCountUpdated", this, nameof(onMineralCountUpdated));
     }
 
 
-    private void _on_BuyButton_pressed()
+    private void onMineralCountUpdated(int count){
+            if (PlayerStats.Instance.MineralCount < this.Price)
+            {
+                buyButton.Disabled = true;
+            }
+            else{
+                buyButton.Disabled = false;
+            }
+    }
+
+
+
+      private void _on_BuyButton_pressed()
     {
         if (Price > PlayerStats.Instance.MineralCount)
         {
@@ -78,12 +119,8 @@ public class UpgradeTreeItem : Control
         if (upgradeType == UpgradeTree.UpgradeType.SHIELD)
         {
             PlayerStats.Instance.ShieldCount += 1;
-
-            if (PlayerStats.Instance.ShieldCount == PlayerStats.MAX_SHIELD_COUNT)
-            {
-                buyButton.Disabled = true;
-            }
         }
+        GD.Print("will now buy item..");
         buyItem();
     }
 }

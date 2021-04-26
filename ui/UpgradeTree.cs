@@ -18,8 +18,6 @@ public class UpgradeTree : NinePatchRect
     {
         Visible = false;
         GetNode("ShieldUpgrade").Connect("buyItemSignal", this, nameof(OnItemBought));
-        GetNode("LaserUpgrades").GetNode("LaserUpgrade_X2").Connect("buyItemSignal", this, nameof(OnItemBought));
-        GetNode("LaserUpgrades").GetNode("LaserUpgrade_X4").Connect("buyItemSignal", this, nameof(OnItemBought));
     }
 
     private void OnItemBought(UpgradeType type, int value)

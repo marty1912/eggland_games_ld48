@@ -12,6 +12,8 @@ public class Scanner: Node2D
     public int currently_scanning = 0;
     public int maxObjects = 2;
     public float MaxDistance = 1000;
+    public float mineralMultiplier = 1;
+
     public void onScanFinished(ScanInfo scan){
     }
 
@@ -19,8 +21,10 @@ public class Scanner: Node2D
     public delegate void addedMinerals(float amount);
     public void addMinerals(float amount){
         // TODO emit signal
+        amount *= mineralMultiplier;
         GD.Print("added minerals", amount);
         EmitSignal(nameof(addedMinerals),amount);
+        PlayerStats.Instance.MineralCount +=(int) Mathf.Floor(amount);
 
     }
     
