@@ -1,0 +1,111 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://BubbleParticles.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Startscreen.cs" type="Script" id=2]
+
+[sub_resource type="DynamicFontData" id=2]
+font_path = "res://assets/fonts/Comfortaa-Bold.ttf"
+
+[sub_resource type="DynamicFont" id=3]
+size = 50
+outline_color = Color( 1, 0.992157, 0.521569, 1 )
+use_mipmaps = true
+font_data = SubResource( 2 )
+
+[sub_resource type="Theme" id=1]
+default_font = SubResource( 3 )
+
+[node name="Startscreen" type="Node2D"]
+script = ExtResource( 2 )
+baseLabel_Name = NodePath("IntroText")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -757.876
+margin_top = -409.648
+margin_right = 795.124
+margin_bottom = 414.352
+color = Color( 0.172549, 0.427451, 0.470588, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="IntroText" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -500.0
+margin_top = 279.112
+margin_right = 500.0
+margin_bottom = 503.112
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( 500, 0 )
+theme = SubResource( 1 )
+custom_colors/font_color = Color( 1, 0.952941, 0.235294, 1 )
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CPUParticles2D" parent="." instance=ExtResource( 1 )]
+position = Vector2( -348.235, 420.961 )
+amount = 14
+spread = 120.48
+initial_velocity = 20.75
+initial_velocity_random = 0.22
+scale_amount_random = 0.32
+
+[node name="CPUParticles2D2" parent="." instance=ExtResource( 1 )]
+position = Vector2( -231.194, 462.492 )
+amount = 14
+spread = 120.48
+initial_velocity = 20.75
+initial_velocity_random = 0.22
+scale_amount_random = 0.32
+
+[node name="CPUParticles2D3" parent="." instance=ExtResource( 1 )]
+position = Vector2( -74.5111, 439.838 )
+amount = 14
+spread = 120.48
+initial_velocity = 20.75
+initial_velocity_random = 0.22
+scale_amount_random = 0.32
+
+[node name="CPUParticles2D4" parent="." instance=ExtResource( 1 )]
+position = Vector2( 102.937, 394.533 )
+amount = 14
+spread = 120.48
+initial_velocity = 20.75
+initial_velocity_random = 0.22
+scale_amount_random = 0.32
+
+[node name="CPUParticles2D5" parent="." instance=ExtResource( 1 )]
+position = Vector2( 312.477, 375.655 )
+amount = 14
+spread = 120.48
+initial_velocity = 20.75
+initial_velocity_random = 0.22
+scale_amount_random = 0.32
+
+[node name="CPUParticles2D6" parent="." instance=ExtResource( 1 )]
+position = Vector2( 437.069, 383.206 )
+amount = 14
+spread = 120.48
+initial_velocity = 20.75
+initial_velocity_random = 0.22
+scale_amount_random = 0.32
+
+[node name="CPUParticles2D7" parent="." instance=ExtResource( 1 )]
+position = Vector2( -440.734, 383.206 )
+amount = 14
+spread = 120.48
+initial_velocity = 20.75
+initial_velocity_random = 0.22
+scale_amount_random = 0.32

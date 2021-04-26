@@ -15,26 +15,28 @@ Text = PoolStringArray( "Test TExt...", "23", "234234" )
 
 [node name="Label" type="Label" parent="."]
 material = SubResource( 1 )
-margin_left = -92.0
-margin_top = -110.0
-margin_right = 96.0
-margin_bottom = -69.0
+margin_left = -91.0
+margin_top = -123.0
+margin_right = 97.0
+margin_bottom = -53.0
 theme = ExtResource( 1 )
 align = 1
 valign = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label2" type="Label" parent="."]
 material = SubResource( 1 )
-margin_left = -92.0
-margin_top = -162.0
-margin_right = 96.0
-margin_bottom = -121.0
+margin_left = -95.0
+margin_top = -143.0
+margin_right = 93.0
+margin_bottom = -102.0
 theme = ExtResource( 1 )
 align = 1
 valign = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -48,6 +50,7 @@ margin_bottom = -165.0
 theme = ExtResource( 1 )
 align = 1
 valign = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
